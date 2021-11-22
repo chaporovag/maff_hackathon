@@ -1,5 +1,5 @@
 import * as utils from "@dcl/ecs-scene-utils"
-
+let b=0
 export default class Squad extends Entity {
   constructor(transform: TransformConstructorArgs) {
     super();
