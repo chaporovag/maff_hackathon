@@ -17,7 +17,7 @@
   "dependencies": {
     "@dcl/ecs-scene-utils": "^1.7.5"
   },
-  "bundledDependencies": [
+  "bundleDependencies": [
     "@dcl/ecs-scene-utils"
   ]
 }
