@@ -6,6 +6,6 @@ const control = new Control({ position: new Vector3(3.5, -5, 2.1), rotation: Qua
 
 control.addComponent(
   new OnPointerDown((): void => {
-    squid.move(new Vector3(-2, 0, 8))
+    squid.move(new Vector3(-1.5, 0, 8))
   })
 )
