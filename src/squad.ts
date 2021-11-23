@@ -13,9 +13,9 @@ export default class Squad extends Entity {
   public move(targetPos: Vector3): void {
     let currentPos = this.getComponent(Transform).position
 	 let path = []
-	 path[0] = new Vector3(-2, 0, 8)
+	 path[0] = new Vector3(0, 0, 0)
 	 path[1] = new Vector3(5, 0, 8)
-	//  path[1] = new Vector3(1, 0, 8)
+	 path[2] = new Vector3(1, 0, 8)
 	//  path[2] = new Vector3(1, 0, 12)
 	//  path[3] = new Vector3(6, 0, 8)
 	 
