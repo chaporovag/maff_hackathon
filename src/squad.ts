@@ -1,39 +1,24 @@
 import * as utils from "@dcl/ecs-scene-utils"
+import { SimpleMove } from "./move";
+import BaseEntity from "./baseEntity";
 
-export default class Squad extends Entity {
+export default class Squad extends BaseEntity {
 
   private _currentPos: Vector3
-  constructor(transform: TransformConstructorArgs) {
-    super();
+  private _simpleMove: SimpleMove
 
-    engine.addEntity(this);
-
-    this.addComponent(new GLTFShape('models/squid.glb'))
-    this.addComponent(new Transform(transform))
+  constructor(shape: GLTFShape, transform: TransformConstructorArgs) {
+    super(shape, transform);
 
     this._currentPos = this.getComponent(Transform).position
+
+    this._simpleMove = new SimpleMove(this)
+    engine.addSystem(this._simpleMove)
   }
 
-  public move(targetPos: Vector3): void {
-// <<<<<<< HEAD
-//     let currentPos = this.getComponent(Transform).position
-// 	 let path = []
-// 	 path[0] = new Vector3(0, 0, 0)
-// 	 path[1] = new Vector3(5, 0, 8)
-// 	 path[2] = new Vector3(1, 0, 8)
-// 	//  path[2] = new Vector3(1, 0, 12)
-// 	//  path[3] = new Vector3(6, 0, 8)
-	 
-// 	 // Move entity
-// 	 this.addComponentOrReplace(
-// 	 new utils.FollowCurvedPathComponent(path, 5, 40,true))
-//    //  this.addComponentOrReplace(
-//    //    new utils.MoveTransformComponent(
-//    //      currentPos,
-//    //      targetPos,
-//    //      Math.abs(targetPos.x - currentPos.x) * 0.3,
-//    //      () => {
-// =======
+
+  public move(): void {
+// >>>>>>> 5a1c499d91a9240a24972de6100ccfa7e7e698eb
     let path = []
     path[0] = this._currentPos
     path[1] = new Vector3(7, 0, 15)
@@ -45,5 +30,13 @@ export default class Squad extends Entity {
     // Move entity
     this.addComponentOrReplace(new utils.FollowCurvedPathComponent(path, 10, 80, true, false,
       () => { this.getComponent(Transform).rotation = Quaternion.Euler(0, 0, 0) }))
+  }
+
+  public startMove (dir: number) {
+    this._simpleMove.rotateDirection = dir
+  }
+
+  public stopMove () {
+    this._simpleMove.rotateDirection = 0
   }
 }

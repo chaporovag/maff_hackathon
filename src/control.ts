@@ -1,10 +1,7 @@
-export default class Control extends Entity {
+import BaseEntity from "./baseEntity";
+
+export default class Control extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
-    super();
-
-    engine.addEntity(this);
-
-    this.addComponent(new GLTFShape('models/control.glb'));
-    this.addComponent(new Transform(transform));
+    super(new GLTFShape('models/control.glb'), transform);
   }
 }
