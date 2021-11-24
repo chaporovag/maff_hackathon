@@ -1,20 +1,22 @@
 import * as utils from "@dcl/ecs-scene-utils"
+import { SimpleMove } from "./move";
+import BaseEntity from "./baseEntity";
 
-export default class Squad extends Entity {
+export default class Squad extends BaseEntity {
 
   private _currentPos: Vector3
-  constructor(transform: TransformConstructorArgs) {
-    super();
+  private _simpleMove: SimpleMove
 
-    engine.addEntity(this);
-
-    this.addComponent(new GLTFShape('models/squid.glb'))
-    this.addComponent(new Transform(transform))
+  constructor(shape: GLTFShape, transform: TransformConstructorArgs) {
+    super(shape, transform);
 
     this._currentPos = this.getComponent(Transform).position
+
+    this._simpleMove = new SimpleMove(this)
+    engine.addSystem(this._simpleMove)
   }
 
-  public move(targetPos: Vector3): void {
+  public move(): void {
     let path = []
     path[0] = this._currentPos
     path[1] = new Vector3(7, 0, 15)
@@ -25,5 +27,13 @@ export default class Squad extends Entity {
     // Move entity
     this.addComponentOrReplace(new utils.FollowCurvedPathComponent(path, 10, 80, true, false,
       () => { this.getComponent(Transform).rotation = Quaternion.Euler(0, 0, 0) }))
+  }
+
+  public startMove (dir: number) {
+    this._simpleMove.rotateDirection = dir
+  }
+
+  public stopMove () {
+    this._simpleMove.rotateDirection = 0
   }
 }
