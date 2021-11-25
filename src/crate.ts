@@ -19,11 +19,11 @@ export class Crate extends Entity {
 					transform.position.z += 1.5
 					this.setParent(Attachable.FIRST_PERSON_CAMERA)
 				 } else {
-					this.isGrabbed = false
+					
 				  //  putDownSound.getComponent(AudioSource).playOnce()
 			  
 					// Calculate crate's ground position
-					this.setParent(null) // Remove parent
+					
 					let forwardVector: Vector3 = Vector3.Forward()
 					  .scale(1.5)
 					  .rotate(Camera.instance.rotation)
@@ -33,7 +33,9 @@ export class Crate extends Entity {
 					transform.rotation.z = 0
 					let distance = Vector3.Down().scale(.1)
 					transform.translate(distance)
+					this.isGrabbed = false
 					// transform.position.y = 0.5
+					this.setParent(null) // Remove parent
 				 }
 			},
 			{
