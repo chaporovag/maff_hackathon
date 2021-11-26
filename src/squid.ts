@@ -1,7 +1,7 @@
 import * as utils from "@dcl/ecs-scene-utils"
 import ActionSystem from "./systems/actionSystem";
 import BaseEntity from "./base/baseEntity";
-
+import { Battery } from "./battery";
 export enum Move {
   FORWARD = 'FORWARD',
   BACK = 'BACK',
@@ -37,6 +37,7 @@ export default class Squid extends BaseEntity {
   }
 */
   public move (dir?: Move) {
+	  
     switch (dir) {
       case Move.FORWARD:
         this._actionSystem.moveForward()

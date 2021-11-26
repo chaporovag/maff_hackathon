@@ -5,6 +5,7 @@ import {Crate} from './crate'
 import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
+import { Battery } from "./battery";
 
 const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0, 8) });
 const wall = new BaseEntity(new GLTFShape('models/wall10.glb'),{ position: new Vector3(3.8, 0, 8.1) });
@@ -12,8 +13,10 @@ const wall = new BaseEntity(new GLTFShape('models/wall10.glb'),{ position: new V
 const control1 = new Control({ position: new Vector3(3.5, -5, 3.6), rotation: Quaternion.Euler(0, 90, 0) });
 const control2 = new Control({ position: new Vector3(5.5, -5, 3.6), rotation: Quaternion.Euler(0, 90, 0) });
 
+const battery = new Battery(new Transform({ position: new Vector3(12,0,3.6)}));
+
 const controlRight = new Control({ position: new Vector3(8.5, -5, 3.6), rotation: Quaternion.Euler(0, 90, 0) });
-const controlLeft = new Control({ position: new Vector3(10.5, -5, 3.6), rotation: Quaternion.Euler(0, 90, 0) });
+const controlLeft = new Control({ position: new Vector3(12, -5, 3.6), rotation: Quaternion.Euler(0, 90, 0) });
 
 const capsule1= new Capsule(new Transform({ position: new Vector3(17,1.5,12),rotation: Quaternion.Euler(0, 0, 90), scale: new Vector3(2, 2, 2), }))
 const capsule2= new Capsule(new Transform({ position: new Vector3(17,1.5,14),rotation: Quaternion.Euler(0, 0, 90), scale: new Vector3(2, 2, 2), }))
@@ -23,48 +26,69 @@ const capsule4= new Capsule(new Transform({ position: new Vector3(17,1.5,10),rot
 
 control1.addComponent(
   new OnPointerDown((): void => {
+	if(battery.isTake) {
     squid.move(Move.FORWARD)
+	} 
   })
 )
 control1.addComponent(
+
   new OnPointerUp((): void => {
+	if(battery.isTake) {
     squid.move()
+	}
   })
 )
 
 control2.addComponent(
   new OnPointerDown((): void => {
-    squid.move(Move.BACK)
+	if(battery.isTake) {
+    squid.move(Move.BACK)}
+
   })
 )
 control2.addComponent(
   new OnPointerUp((): void => {
+	if(battery.isTake) {
     squid.move()
+	}
   })
 )
 
 controlRight.addComponent(
   new OnPointerDown((): void => {
+	if(battery.isTake) {
     squid.rotate(Rotate.RIGHT)
+	}
   },)
 )
 controlRight.addComponent(
   new OnPointerUp((): void => {
+	if(battery.isTake) {
     squid.rotate();
+	}
   })
 )
 
 controlLeft.addComponent(
   new OnPointerDown((): void => {
-    squid.rotate(Rotate.LEFT)
+	if(battery.isTake) {
+    squid.rotate(Rotate.LEFT)}
   },)
 )
 controlLeft.addComponent(
   new OnPointerUp((): void => {
-    squid.rotate();
+	if(battery.isTake) {
+    squid.rotate();}
   })
 )
 
+// if(!battery.isTake)  {
+// 	controlLeft.notBatteryTake()
+// 	controlRight.notBatteryTake()
+// 	control2.notBatteryTake()
+// 	control1.notBatteryTake()
+// }
 const crate = new Crate(
   new Transform({
     position: new Vector3(8, 0.5, 12),
