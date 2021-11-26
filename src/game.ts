@@ -1,8 +1,10 @@
 import Squid, {Move, Rotate} from "./squid";
 import Control from "./control";
-import BaseEntity from "./baseEntity";
+import BaseEntity from "./base/baseEntity";
 import {Crate} from './crate'
 import {Capsule} from "./capsule";
+import {Box} from "./box";
+import PhysicsSystem from "./systems/physicsSystem";
 
 const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0, 8) });
 const wall = new BaseEntity(new GLTFShape('models/wall10.glb'),{ position: new Vector3(3.8, 0, 8.1) });
@@ -18,14 +20,6 @@ const capsule2= new Capsule(new Transform({ position: new Vector3(17,1.5,14),rot
 const capsule3= new Capsule(new Transform({ position: new Vector3(17,1.5,8),rotation: Quaternion.Euler(0, 0, 90), scale: new Vector3(2, 2, 2), }))
 const capsule4= new Capsule(new Transform({ position: new Vector3(17,1.5,10),rotation: Quaternion.Euler(0, 0, 90), scale: new Vector3(2, 2, 2), }))
 
-
-// Give it a model and move it into place
-//
-// control1.addComponent(
-//   new OnPointerDown((): void => {
-//     squid.forward()
-//   })
-// )
 
 control1.addComponent(
   new OnPointerDown((): void => {
@@ -71,8 +65,6 @@ controlLeft.addComponent(
   })
 )
 
-
-
 const crate = new Crate(
   new Transform({
     position: new Vector3(8, 0.5, 12),
@@ -89,26 +81,35 @@ const crate2 = new Crate(
   })
 )
 
-// followTheCamera.addComponent(new BoxShape())
-// followTheCamera.addComponent(
-//   new Transform({
-//     position: new Vector3(2, 0.5, 1),
-//   })
-// )
-// engine.addEntity(followTheCamera)
-// let take = false;
 
-// followTheCamera.addComponent(
-// 	new OnClick(():void=>{
-// 		if(!take){
-// 		followTheCamera.setParent(Attachable.FIRST_PERSON_CAMERA);
-// 		take = true
-// 	} else {
-// 		followTheCamera.setParent('');
-// 	}
-		
-// 	})
-// )
+// Create balls
+const box1 = new Box(new Transform({ position: new Vector3(12, 0.5, 6) }))
+const box2 = new Box(new Transform({ position: new Vector3(12, 0.5, 7) }))
+const box3 = new Box(new Transform({ position: new Vector3(12, 0.5, 8) }))
+const box4 = new Box(new Transform({ position: new Vector3(12, 0.5, 9) }))
+const box5 = new Box(new Transform({ position: new Vector3(12, 0.5, 10) }))
 
-// Input.instance.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => log('key down', e))
-// { button: ActionButton.PRIMARY }
+const boxes: Box[] = [box1, box2, box3, box4, box5]
+const physicsSystem = new PhysicsSystem()
+
+boxes.forEach(box => {
+  physicsSystem.addEntity(box)
+})
+
+
+// Controls
+Input.instance.subscribe("BUTTON_UP", ActionButton.POINTER, false, (e) => {
+  boxes.forEach(box => {
+    if (box.isActive) {
+      // Camera's forward vector
+      const throwDirection = Vector3.Forward().rotate(Camera.instance.rotation)
+      box.playerDrop(throwDirection)
+    }
+  })
+})
+
+
+
+
+
+

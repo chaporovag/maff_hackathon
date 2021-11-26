@@ -1,6 +1,6 @@
 import * as utils from "@dcl/ecs-scene-utils"
 import ActionSystem from "./systems/actionSystem";
-import BaseEntity from "./baseEntity";
+import BaseEntity from "./base/baseEntity";
 
 export enum Move {
   FORWARD = 'FORWARD',
