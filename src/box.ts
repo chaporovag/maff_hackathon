@@ -4,7 +4,9 @@ export class Box extends PhysicsEntity {
 
   public isActive: boolean = false
 
+  // @ts-ignore
   private _body: CANNON.Body
+  // @ts-ignore
   private _world: CANNON.World
 
   constructor(transform: Transform) {

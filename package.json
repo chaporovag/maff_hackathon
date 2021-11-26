@@ -16,9 +16,11 @@
   },
   "dependencies": {
     "@dcl/ecs-scene-utils": "^1.7.5",
+    "@dcl/ui-scene-utils": "^1.8.1",
     "cannon": "^0.6.2"
   },
-  "bundleDependencies": [
-    "@dcl/ecs-scene-utils"
+  "bundledDependencies": [
+    "@dcl/ecs-scene-utils",
+    "@dcl/ui-scene-utils"
   ]
 }
