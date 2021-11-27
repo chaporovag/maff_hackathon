@@ -11,7 +11,7 @@ export default class Key extends BaseEntity {
     super(new GLTFShape('models/key_card.glb'), transform)
 
     this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
-	 this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
+	  this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
     // Create trigger for key
     this.addComponent(
 		 new OnPointerDown(()=>{

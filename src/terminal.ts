@@ -29,14 +29,14 @@ export default class Terminal extends BaseEntity {
   private _key: Key
 
   constructor(transform: TransformConstructorArgs) {
-    super(new GLTFShape('models/terminal.glb'), transform);
-
+    super(new GLTFShape('models/terminal2.glb'), transform);
+    new BaseEntity(new GLTFShape('models/terminal2_screen.glb'), transform)
     this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
 
-    this._turnLeftBtn = new TerminalButton({ position: new Vector3(2.5, 0.8, 2.05) })
-    this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 0.8, 2), scale: new Vector3(0.75, 1, 0.75) })
-    this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 0.8, 2), scale: new Vector3(0.75, 1, 0.75) })
-    this._turnRightBtn = new TerminalButton({ position: new Vector3(3.5, 0.8, 2.05) })
+    this._turnLeftBtn = new TerminalButton({ position: new Vector3(2.56, 0, 3), rotation: new Quaternion(0, 90, 0) })
+    this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 0, 3), rotation: new Quaternion(0, 90, 0) })
+    this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 0, 3), rotation: new Quaternion(0, 90, 0) })
+    this._turnRightBtn = new TerminalButton({ position: new Vector3(3.45, 0, 3), rotation: new Quaternion(0, 90, 0) })
 
     this.addComponent(new OnClick(
       () => {
