@@ -1,5 +1,6 @@
 import PhysicsEntity from "./base/physicsEntity";
 import Vec3 = CANNON.Vec3;
+// import { movePlayerTo } from '@decentraland/RestrictedActions'
 
 export class Box extends PhysicsEntity {
 
@@ -12,6 +13,7 @@ export class Box extends PhysicsEntity {
 
   constructor(shape: GLTFShape, transform: Transform) {
     super(shape, transform);
+	 
 	 this.addComponent(new AudioSource(new AudioClip("audio/quit_box.mp3")));
   }
 
@@ -37,7 +39,7 @@ export class Box extends PhysicsEntity {
       new OnPointerDown(
         () => {
           this.playerPickup();
-			
+			 
         },
         { hoverText: "Pick up", distance: 6, button: ActionButton.PRIMARY }
       )
@@ -49,8 +51,9 @@ export class Box extends PhysicsEntity {
     this._body.sleep()
     this._body.position.set(Camera.instance.position.x, Camera.instance.position.y, Camera.instance.position.z)
     this.setParent(Attachable.FIRST_PERSON_CAMERA)
-    this.getComponent(Transform).position.set(0, -0.2, 1.4);
+    this.getComponent(Transform).position.set(0, -0.2, 1.5);
 	 
+	//  movePlayerTo({ x: Camera.instance.feetPosition.x+0.01, y: Camera.instance.feetPosition.y, z: Camera.instance.feetPosition.z })
   }
 
   public playerDrop(dropDirection: Vector3): void {

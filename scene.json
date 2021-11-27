@@ -1,4 +1,5 @@
 {
+	
   "display": {
     "title": "DCL Scene",
     "description": "My new Decentraland project",
@@ -16,9 +17,13 @@
     ],
     "base": "0,0"
   },
-  "requiredPermissions": [],
+  "requiredPermissions": [
+	"ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
+ ],
+
   "main": "bin/game.js",
   "tags": [],
+  
   "spawnPoints": [
     {
       "name": "spawn1",

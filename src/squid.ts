@@ -1,7 +1,8 @@
 import * as utils from "@dcl/ecs-scene-utils"
 import ActionSystem from "./systems/actionSystem";
 import BaseEntity from "./base/baseEntity";
-import { Battery } from "./battery";
+// import { Battery } from "./battery";
+
 export enum Move {
   FORWARD = 'FORWARD',
   BACK = 'BACK',
@@ -22,6 +23,7 @@ export default class Squid extends BaseEntity {
 	//  this.addComponent(new AudioSource(new AudioClip("audio/Tractor.mp3")))
     this._currentPos = this.getComponent(Transform).position
 this.addComponent(new OnPointerDown(()=>{
+	
 	// this.getComponent(AudioSource).playOnce()
 })) 
     this._actionSystem = new ActionSystem(this)
@@ -39,8 +41,10 @@ this.addComponent(new OnPointerDown(()=>{
   }
 */
   public move (dir?: Move) {
+	  if(this._currentPos.z>10&&this._currentPos.x>10) this._actionSystem.moveStop()
 	// this.getComponent(AudioSource).playOnce()
     switch (dir) {
+		 
       case Move.FORWARD:
         this._actionSystem.moveForward();
 		  

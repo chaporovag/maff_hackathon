@@ -33,7 +33,7 @@ export class Capsule extends Entity {
 					 new utils.MoveTransformComponent(
 						 coconBase.getComponent(Transform).position,
 						 endPos,
-						 0.5
+						 0.8
 					 )
 				 )
 				//  Global.pushed_back = true
@@ -45,7 +45,7 @@ export class Capsule extends Entity {
 					 new utils.MoveTransformComponent(
 						 coconBase.getComponent(Transform).position,
 						 startPos,
-						 0.5
+						 0.8
 					 )
 				 )
 			  }
