@@ -55,6 +55,7 @@ export default class Terminal extends BaseEntity {
 
       this._key.hideIcon()
       this.removeComponent(OnClick)
+
       this.addComponent(new OnClick(
         () => ui.displayAnnouncement('Use terminal button for action'),
         { hoverText: "Use buttons" }
