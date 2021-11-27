@@ -2,10 +2,10 @@
 export class Capsule extends Entity {
 	isOutside: boolean = false
  
-	constructor( transform: Transform) {
+	constructor(shape: GLTFShape, transform: Transform) {
 	  super()
 	  engine.addEntity(this)
-	  this.addComponent(new GLTFShape("models/capsule.glb") )
+	  this.addComponent(shape)
 	  this.addComponent(transform);
 	  this.addComponent(
 		new OnPointerDown(

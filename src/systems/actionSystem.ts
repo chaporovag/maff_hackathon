@@ -14,10 +14,9 @@ export default class ActionSystem implements ISystem {
 
   update () {
     if (this._moveDirection) {
-      const angle = this._transform.eulerAngles.y
       const direction = this._moveDirection
       if (direction != 0) {
-        const distance = Vector3.One().multiply(this._rotateY(angle))
+        const distance = Vector3.Forward().rotate(this._transform.rotation)
         const sign = direction < 0 ? -1 : 1
         this._transform.translate(distance.scale(sign * 0.1))
       }
@@ -55,10 +54,5 @@ export default class ActionSystem implements ISystem {
 
   public turnStop (): void {
     this._turnDirection = 0
-  }
-
-  private _rotateY(angle: number): Vector3 {
-    const rad = Math.PI / 180
-    return new Vector3(Math.sin(angle * rad), 0, Math.cos(angle * rad))
   }
 }

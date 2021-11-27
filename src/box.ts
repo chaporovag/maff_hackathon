@@ -1,37 +1,38 @@
 import PhysicsEntity from "./base/physicsEntity";
+import Vec3 = CANNON.Vec3;
 
 export class Box extends PhysicsEntity {
 
   public isActive: boolean = false
 
+  // @ts-ignore
   private _body: CANNON.Body
+  // @ts-ignore
   private _world: CANNON.World
 
-  constructor(transform: Transform) {
-    super(new GLTFShape("models/crate.glb"), transform)
+  constructor(shape: GLTFShape, transform: Transform) {
+    super(shape, transform)
+  }
+
+  protected setBody(body: CANNON.Body) {
+    this._body = body
+  }
+
+  public getBody(): CANNON.Body {
+    return this._body
   }
 
   public init(cannonMaterial: CANNON.Material, world: CANNON.World): void {
-    const transform = this.getComponent(Transform)
+    this._world = world
+    const body = this._body
 
-    // Create physics body for ball
-    const body = new CANNON.Body({
-      mass: 1, // kg
-      position: new CANNON.Vec3(transform.position.x, transform.position.y, transform.position.z), // m
-      shape: new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)), // Create sphere shaped body with a diameter of 0.22m
-    })
-
-    // Add material and dampening to stop the ball rotating and moving continuously
     body.sleep()
     body.material = cannonMaterial
     body.linearDamping = 0.4
     body.angularDamping = 0.4
     world.addBody(body)
 
-    this._world = world
-    this._body = body
-
-    this.addComponentOrReplace(
+    this.addComponent(
       new OnPointerDown(
         () => {
           this.playerPickup()
@@ -41,11 +42,7 @@ export class Box extends PhysicsEntity {
     )
   }
 
-  getBody(): CANNON.Body {
-    return this._body
-  }
-
-  playerPickup(): void {
+  public playerPickup(): void {
     this.isActive = true
     this._body.sleep()
     this._body.position.set(Camera.instance.position.x, Camera.instance.position.y, Camera.instance.position.z)
@@ -53,7 +50,7 @@ export class Box extends PhysicsEntity {
     this.getComponent(Transform).position.set(0, -0.2, 1.4)
   }
 
-  playerDrop(throwDirection: Vector3): void {
+  public playerDrop(dropDirection: Vector3): void {
     this.isActive = false
     this.setParent(null)
 
@@ -63,9 +60,9 @@ export class Box extends PhysicsEntity {
     this._body.angularVelocity.setZero()
 
     this._body.position.set(
-      Camera.instance.feetPosition.x + throwDirection.x,
-      throwDirection.y + Camera.instance.position.y,
-      Camera.instance.feetPosition.z + throwDirection.z
+      Camera.instance.feetPosition.x + dropDirection.x * 1.4,
+      Camera.instance.position.y + 0.2,
+      Camera.instance.feetPosition.z + dropDirection.z * 1.4
     )
   }
 }
