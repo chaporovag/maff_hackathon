@@ -54,6 +54,9 @@ export class Box extends PhysicsEntity {
   }
 
   public playerDrop(dropDirection: Vector3): void {
+    if (Camera.instance.position.equals(Vector3.Zero()))
+      return
+
     this.isActive = false
     this.setParent(null)
 	 
@@ -62,7 +65,6 @@ export class Box extends PhysicsEntity {
     this._body.wakeUp()
     this._body.velocity.setZero()
     this._body.angularVelocity.setZero()
-
     this._body.position.set(
       Camera.instance.feetPosition.x + dropDirection.x * 1.4,
       Camera.instance.position.y + 0.2,

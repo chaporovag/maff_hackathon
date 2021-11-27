@@ -30,7 +30,7 @@ new Capsule( new Transform({ position: new Vector3(15.8, 0.3, 8) ,rotation: Quat
 new Capsule( new Transform({ position: new Vector3(15.8, 0.3, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
 new Capsule( new Transform({ position: new Vector3(15.8, 0.3, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
 
-const key= new Key(new Transform({ position: new Vector3(14, 1.3, 12) }));
+const key= new Key(new Transform({ position: new Vector3(15, 1.3, 12) }));
 	terminal.init(squid, key)
 	
 /*

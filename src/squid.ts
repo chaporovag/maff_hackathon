@@ -22,6 +22,8 @@ export default class Squid extends BaseEntity {
     this.addComponent(new OnPointerDown(()=>{
       // this.getComponent(AudioSource).playOnce()
     }))
+
+    // const battery = new BaseEntity(new GLTFShape('models/squid_battery.glb'), transform)
     this._actionSystem = new ActionSystem(this)
     engine.addSystem(this._actionSystem)
   }
