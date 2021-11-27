@@ -3,21 +3,21 @@ import * as ui from "@dcl/ui-scene-utils";
 import Global from "./core/global";
 import BaseEntity from "./base/baseEntity";
 
-export default class Battery extends BaseEntity {
+export default class Pill extends BaseEntity {
   // @ts-ignore
-  private _icon: ui.SmallIcon
+//   private _icon: ui.SmallIcon
 
   constructor(transform: Transform) {
-    super(new GLTFShape('models/BATTERY.glb'), transform)
+    super(new GLTFShape("models/Pill.glb"), transform)
 
-   //  this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
-	 this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
+    this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
+	 this.addComponent(new AudioSource(new AudioClip("audio/tablet_take.mp3")))
     // Create trigger for key
     this.addComponent(
 		 new OnPointerDown(()=>{
 			this.getComponent(Transform).scale.setAll(0)
-			         this._icon = new ui.SmallIcon("images/key.png", -70, 255, 100, 100)
-			         Global.HAS_BATTERY = true
+			         // this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
+			         Global.HAS_PILL = true
 						this.getComponent(AudioSource).playOnce()
 		 })
    //    new utils.TriggerComponent(
@@ -38,7 +38,7 @@ export default class Battery extends BaseEntity {
     )
   }
 
-  public hideIcon(): void {
-    this._icon.hide()
-  }
+//   public hideIcon(): void {
+//     this._icon.hide()
+//   }
 }
