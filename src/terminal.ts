@@ -33,6 +33,8 @@ export default class Terminal extends BaseEntity {
     new BaseEntity(new GLTFShape('models/terminal2_screen.glb'), transform)
     this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
 
+    this._key = new Key(new Transform({ position: new Vector3(15.5, 5.1, 8) }));
+
     this._turnLeftBtn = new TerminalButton({ position: new Vector3(2.56, 0, 3), rotation: new Quaternion(0, 90, 0) })
     this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 0, 3), rotation: new Quaternion(0, 90, 0) })
     this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 0, 3), rotation: new Quaternion(0, 90, 0) })
@@ -48,9 +50,8 @@ export default class Terminal extends BaseEntity {
     )
   }
 
-  public init(squid: Squid, key: Key):void {
+  public init(squid: Squid):void {
     this._squid = squid
-    this._key = key
   }
 
   private _checkState(): void {
@@ -69,6 +70,7 @@ export default class Terminal extends BaseEntity {
       const transform = this.getComponent(Transform)
       const transformCopy = { position: { ...transform.position }, rotation: { ...transform.rotation } }
       transformCopy.position.y -= 0.33
+      // @ts-ignore
       const card = new TerminalCard(transformCopy)
 
       this.removeComponent(OnClick)

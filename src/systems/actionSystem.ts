@@ -1,13 +1,13 @@
+import BaseEntity from "../base/baseEntity";
+
 export default class ActionSystem implements ISystem {
 
-  private readonly _entity: Entity
-  private readonly _transform: Transform
+  private readonly _entity: BaseEntity[]
   private _turnDirection: number
   private _moveDirection: number
 
-  constructor(entity: Entity) {
+  constructor(entity: BaseEntity[]) {
     this._entity = entity
-    this._transform = this._entity.getComponent(Transform)
     this._turnDirection = 0
     this._moveDirection = 0
   }
@@ -16,19 +16,25 @@ export default class ActionSystem implements ISystem {
     if (this._moveDirection) {
       const direction = this._moveDirection
       if (direction != 0) {
-        const distance = Vector3.Forward().rotate(this._transform.rotation)
-        const sign = direction < 0 ? -1 : 1
-        this._transform.translate(distance.scale(sign * 0.1))
+        this._entity.forEach(item => {
+          const transform = item.getComponent(Transform)
+          const distance = Vector3.Forward().rotate(transform.rotation)
+          const sign = direction < 0 ? -1 : 1
+          transform.translate(distance.scale(sign * 0.05))
+        })
       }
     }
 
     if (this._turnDirection) {
       const direction = this._turnDirection
       const sign = direction < 0 ? -1 : 1
-      if (sign > 0)
-        this._transform.rotate(Vector3.Up(), 2)
-      else
-        this._transform.rotate(Vector3.Down(), 2)
+      this._entity.forEach(item => {
+        const transform = item.getComponent(Transform)
+        if (sign > 0)
+          transform.rotate(Vector3.Up(), 2)
+        else
+          transform.rotate(Vector3.Down(), 2)
+      })
     }
   }
 
