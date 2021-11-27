@@ -15,7 +15,14 @@ import {BoxBig} from "./boxBig";
 import Global from "./core/global";
 
 
+const floor = new Entity();
 
+// Add it to the engine for rendering
+engine.addEntity(floor);
+
+// Give it a component for the model itself
+floor.addComponent(new GLTFShape("models/floor.glb"));
+floor.addComponent((new Transform({ position: new Vector3(8, 0.1, 8) })));
 /*
 const wall = new BaseEntity(new GLTFShape('models/wall11.glb'),{ position: new Vector3(3.8, 0, 8.1) });
 const capsule1 = new Capsule(new GLTFShape("models/capsule.glb"), new Transform({ position: new Vector3(17,1.5,12),rotation: Quaternion.Euler(0, 0, 90), scale: new Vector3(2, 2, 2), }))
@@ -26,16 +33,19 @@ const capsule4 = new Capsule(new GLTFShape("models/capsule2.glb"), new Transform
 
 
 
-const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0, 8) });
+const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0.3, 8) });
+// if(squid.move) {
+
+// }
 
 
 
-const terminal = new Terminal(new Transform({ position: new Vector3(3,0,3),rotation: Quaternion.Euler(0, 180, 0) }))
+const terminal = new Terminal(new Transform({ position: new Vector3(3,0.3,3),rotation: Quaternion.Euler(0, 180, 0) }))
 
 
-const caplule = new Capsule( new Transform({ position: new Vector3(14, 0, 12) ,rotation: Quaternion.Euler(0, 270, 0) }), -1);
+const caplule = new Capsule( new Transform({ position: new Vector3(14, 0.3, 12) ,rotation: Quaternion.Euler(0, 270, 0) }), -1);
 
-const key= new Key(new Transform({ position: new Vector3(14, 1, 12) }));
+const key= new Key(new Transform({ position: new Vector3(14, 1.3, 12) }));
 	terminal.init(squid, key)
 	
 /*
@@ -60,8 +70,8 @@ const crate2 = new Crate(
 
 
 // Create balls
-const boxSmall = new BoxSmall(new Transform({ position: new Vector3(12, 0.5, 6) }))
-const boxBig = new BoxBig(new Transform({ position: new Vector3(12, 0.5, 10) }))
+const boxSmall = new BoxSmall(new Transform({ position: new Vector3(12, 0.7, 6) }))
+const boxBig = new BoxBig(new Transform({ position: new Vector3(12, 0.7, 10) }))
 
 const boxes: Box[] = [boxSmall, boxBig]
 const physicsSystem = new PhysicsSystem()
@@ -73,7 +83,7 @@ boxes.forEach(box => {
 
 // Controls
 // "E" key up
-Input.instance.subscribe("BUTTON_UP", ActionButton.PRIMARY, false, (e) => {
+Input.instance.subscribe("BUTTON_UP", ActionButton.POINTER, false, (e) => {
   squid.rotate();
   squid.move();
 })

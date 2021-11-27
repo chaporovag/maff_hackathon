@@ -10,21 +10,25 @@ export class Capsule extends Entity {
  
 	constructor( transform: Transform, deltaPosition: number) {
 		super();
-	
+		
 		const startPos = transform.position;
 		const endPos = new Vector3(startPos.x + deltaPosition,startPos.y,startPos.z);
 		const cocon = new BaseEntity(new GLTFShape('models/cocon.glb'),{position: new Vector3(transform.position.x+0.5, transform.position.y,transform.position.z), rotation:Quaternion.Euler(0, 270, 0)});
 		// cocon.getComponent(Transform).position.x-= 2;
 		const coconBase = new BaseEntity(new GLTFShape('models/cocon_base.glb'), transform);
-		
+		coconBase.addComponent(new AudioSource(new AudioClip("audio/push_back_capsule.mp3")));
 		coconBase.addComponent(
 			new OnClick(():void=>{
+			
+				coconBase.getComponent(AudioSource).playOnce()
 				coconBase.getComponent(utils.ToggleComponent).toggle()
 			})
 		)
 		coconBase.addComponent(
 		  new utils.ToggleComponent(utils.ToggleState.Off, (value): void => {
 			  if(value === utils.ToggleState.On) {
+				
+				
 				 coconBase.addComponentOrReplace(
 					 new utils.MoveTransformComponent(
 						 coconBase.getComponent(Transform).position,
@@ -36,6 +40,7 @@ export class Capsule extends Entity {
 				//  const key= new Key(new Transform({ position: new Vector3(14, 2, 12) }));
 				 
 			  } else {
+				
 				coconBase.addComponentOrReplace(
 					 new utils.MoveTransformComponent(
 						 coconBase.getComponent(Transform).position,

@@ -30,14 +30,23 @@ export default class Terminal extends BaseEntity {
 
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape('models/terminal.glb'), transform);
-
+	 this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
     this._turnLeftBtn = new TerminalButton({ position: new Vector3(2.5, 0.8, 2.05) })
     this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 0.8, 2), scale: new Vector3(0.75, 1, 0.75) })
     this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 0.8, 2), scale: new Vector3(0.75, 1, 0.75) })
-    this._turnRightBtn = new TerminalButton({ position: new Vector3(3.5, 0.8, 2.05) })
-
+    this._turnRightBtn = new TerminalButton({ position: new Vector3(3.5, 0.8, 2.05) });
+	//  const Error = new AudioClip("audio/Error_terminal_tractor.mp3");
+	//  const source = new AudioSource(Error)
+	 
+	
+	
     this.addComponent(new OnClick(
-      () => this._checkState(),
+      () => {
+			this._checkState();
+			
+			
+			// this.getComponent(AudioSource).playOnce();
+		},
       { hoverText: "Insert the key", distance: 6, button: ActionButton.PRIMARY }
       )
     )
@@ -51,11 +60,17 @@ export default class Terminal extends BaseEntity {
   private _checkState(): void {
     if (Global.HAS_KEY && !this._isActive) {
       new TerminalCard(this.getComponent(Transform))
-      this._activeButtons()
-
+      this._activeButtons();
+		const Sound = new Entity();
+		engine.addEntity(Sound);
+		Sound.addComponent(new AudioSource(new AudioClip("audio/insert_disc.mp3")))
+		Sound.getComponent(AudioSource).playOnce();
+	// 	const Disk = new AudioClip("audio/insert_disc.mp3");
+	//  const sources = new AudioSource(Disk)
+	// 	sources.playing = true
       this._key.hideIcon()
       this.removeComponent(OnClick)
-
+		
       this.addComponent(new OnClick(
         () => ui.displayAnnouncement('Use terminal button for action'),
         { hoverText: "Use buttons" }
@@ -64,7 +79,8 @@ export default class Terminal extends BaseEntity {
 
       this._isActive = true
     } else {
-      ui.displayAnnouncement('You need to find the key at first')
+      ui.displayAnnouncement('You need to find the key at first');
+		this.getComponent(AudioSource).playOnce();
     }
   }
 

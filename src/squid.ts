@@ -19,9 +19,11 @@ export default class Squid extends BaseEntity {
 
   constructor(shape: GLTFShape, transform: TransformConstructorArgs) {
     super(shape, transform);
-
+	//  this.addComponent(new AudioSource(new AudioClip("audio/Tractor.mp3")))
     this._currentPos = this.getComponent(Transform).position
-
+this.addComponent(new OnPointerDown(()=>{
+	// this.getComponent(AudioSource).playOnce()
+})) 
     this._actionSystem = new ActionSystem(this)
     engine.addSystem(this._actionSystem)
   }
@@ -37,10 +39,11 @@ export default class Squid extends BaseEntity {
   }
 */
   public move (dir?: Move) {
-	  
+	// this.getComponent(AudioSource).playOnce()
     switch (dir) {
       case Move.FORWARD:
-        this._actionSystem.moveForward()
+        this._actionSystem.moveForward();
+		  
         break;
       case Move.BACK:
         this._actionSystem.moveBack()
