@@ -17,7 +17,7 @@ export default class Squid extends BaseEntity {
   private readonly _actionSystem: ActionSystem
   private readonly _elements: BaseEntity[]
   private _isActive: boolean = false
-  private _battery: BaseEntity
+  private readonly _battery: BaseEntity
 
   constructor(shape: GLTFShape, transform: TransformConstructorArgs) {
     super(shape, transform);
