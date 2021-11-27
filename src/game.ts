@@ -31,6 +31,7 @@ const key = new Key(new Transform({ position: new Vector3(12, 6, 12) }))
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0,3),rotation: Quaternion.Euler(0, 180, 0) }))
 terminal.init(squid, key)
 
+const caplule = new Capsule(new GLTFShape('models/cocon__base.glb'), new Transform({ position: new Vector3(14, 0, 12) ,rotation: Quaternion.Euler(0, 90, 0) }), 1)
 /*
 >>>>>>> 30c8b7df1e9bd320f2c70aee531d97a00e843a43
 const crate = new Crate(
