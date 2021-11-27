@@ -14,21 +14,26 @@ export default class Key extends BaseEntity {
 
     // Create trigger for key
     this.addComponent(
-      new utils.TriggerComponent(
-        new utils.TriggerBoxShape(
-          new Vector3(0.1, 0.1, 0.1)
-        ),
-        {
-          onCameraEnter: () => {
-            this.getComponent(Transform).scale.setAll(0)
-            this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
-            Global.HAS_KEY = true
-          },
-          onCameraExit: () => {
-            engine.removeEntity(this)
-          },
-        }
-      )
+		 new OnPointerDown(()=>{
+			this.getComponent(Transform).scale.setAll(0)
+			         this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
+			         Global.HAS_KEY = true
+		 })
+   //    new utils.TriggerComponent(
+   //      new utils.TriggerBoxShape(
+   //        new Vector3(0.1, 0.1, 0.1)
+   //      ),
+   //      {
+   //        onCameraEnter: () => {
+   //          this.getComponent(Transform).scale.setAll(0)
+   //          this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
+   //          Global.HAS_KEY = true
+   //        },
+   //        onCameraExit: () => {
+   //          engine.removeEntity(this)
+   //        },
+   //      }
+   //    )
     )
   }
 
