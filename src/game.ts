@@ -1,7 +1,5 @@
 import Squid, {Move, Rotate} from "./squid";
-import Control from "./control";
 import BaseEntity from "./base/baseEntity";
-import {Crate} from './crate'
 import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
@@ -16,8 +14,9 @@ import Global from "./core/global";
 
 
 
-/*
+
 const wall = new BaseEntity(new GLTFShape('models/wall11.glb'),{ position: new Vector3(3.8, 0, 8.1) });
+/*
 const capsule1 = new Capsule(new GLTFShape("models/capsule.glb"), new Transform({ position: new Vector3(17,1.5,12),rotation: Quaternion.Euler(0, 0, 90), scale: new Vector3(2, 2, 2), }))
 const capsule2 = new Capsule(new GLTFShape("models/capsule.glb"), new Transform({ position: new Vector3(17,1.5,14),rotation: Quaternion.Euler(0, 0, 90), scale: new Vector3(2, 2, 2), }))
 const capsule3 = new Capsule(new GLTFShape("models/capsule2.glb"), new Transform({ position: new Vector3(17,1.5,8),rotation: Quaternion.Euler(0, 0, 90), scale: new Vector3(2, 2, 2), }))
@@ -26,20 +25,25 @@ const capsule4 = new Capsule(new GLTFShape("models/capsule2.glb"), new Transform
 
 
 
-const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0, 8) });
+// const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0, 8) });
+
+const squid = new Squid(new GLTFShape('models/squid_v1.1.glb'), { position: new Vector3(6, 0, 8) });
+
 
 
 
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0,3),rotation: Quaternion.Euler(0, 180, 0) }))
 
 
-const caplule = new Capsule( new Transform({ position: new Vector3(14, 0, 12) ,rotation: Quaternion.Euler(0, 270, 0) }), -1);
+new Capsule( new Transform({ position: new Vector3(15.8, 0, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+new Capsule( new Transform({ position: new Vector3(15.8, 0, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+new Capsule( new Transform({ position: new Vector3(15.8, 0, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+new Capsule( new Transform({ position: new Vector3(15.8, 0, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
 
-const key= new Key(new Transform({ position: new Vector3(14, 1, 12) }));
-	terminal.init(squid, key)
+const key= new Key(new Transform({ position: new Vector3(15.2, 1, 11) }));
+terminal.init(squid, key)
 	
 /*
->>>>>>> 30c8b7df1e9bd320f2c70aee531d97a00e843a43
 const crate = new Crate(
   new Transform({
     position: new Vector3(8, 0.5, 12),

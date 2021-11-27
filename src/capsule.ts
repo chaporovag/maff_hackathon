@@ -13,9 +13,8 @@ export class Capsule extends Entity {
 	
 		const startPos = transform.position;
 		const endPos = new Vector3(startPos.x + deltaPosition,startPos.y,startPos.z);
-		const cocon = new BaseEntity(new GLTFShape('models/cocon.glb'),{position: new Vector3(transform.position.x+0.5, transform.position.y,transform.position.z), rotation:Quaternion.Euler(0, 270, 0)});
-		// cocon.getComponent(Transform).position.x-= 2;
-		const coconBase = new BaseEntity(new GLTFShape('models/cocon_base.glb'), transform);
+		const cocon = new BaseEntity(new GLTFShape('models/cocon.glb'), transform)
+		const coconBase = new BaseEntity(new GLTFShape('models/cocon_base.glb'), transform)
 		
 		coconBase.addComponent(
 			new OnClick(():void=>{

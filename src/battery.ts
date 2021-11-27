@@ -13,10 +13,6 @@ export class Battery extends Entity {
 		  () => {
 			this.isTake = true;
 			this.getComponent(Transform).scale.setAll(0)
-			
-			
-			
 		}))
 	}
-	
 }

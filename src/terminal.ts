@@ -6,7 +6,7 @@ import Key from "./key";
 
 class TerminalButton extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
-    super(new GLTFShape('models/terminal_btn.glb'), transform);
+    super(new GLTFShape('models/terminal2_btn.glb'), transform);
   }
 }
 
@@ -29,12 +29,14 @@ export default class Terminal extends BaseEntity {
   private _key: Key
 
   constructor(transform: TransformConstructorArgs) {
-    super(new GLTFShape('models/terminal.glb'), transform);
+    super(new GLTFShape('models/terminal2.glb'), transform);
 
-    this._turnLeftBtn = new TerminalButton({ position: new Vector3(2.5, 0.8, 2.05) })
-    this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 0.8, 2), scale: new Vector3(0.75, 1, 0.75) })
-    this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 0.8, 2), scale: new Vector3(0.75, 1, 0.75) })
-    this._turnRightBtn = new TerminalButton({ position: new Vector3(3.5, 0.8, 2.05) })
+    new BaseEntity(new GLTFShape('models/terminal2_screen.glb'), transform)
+
+    this._turnLeftBtn = new TerminalButton({ position: new Vector3(2.56, 0, 3), rotation: new Quaternion(0, 90, 0) })
+    this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 0, 3), rotation: new Quaternion(0, 90, 0) })
+    this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 0, 3), rotation: new Quaternion(0, 90, 0) })
+    this._turnRightBtn = new TerminalButton({ position: new Vector3(3.45, 0, 3), rotation: new Quaternion(0, 90, 0) })
 
     this.addComponent(new OnClick(
       () => this._checkState(),
@@ -50,14 +52,18 @@ export default class Terminal extends BaseEntity {
 
   private _checkState(): void {
     if (Global.HAS_KEY && !this._isActive) {
-      new TerminalCard(this.getComponent(Transform))
       this._activeButtons()
 
       this._key.hideIcon()
-      this.removeComponent(OnClick)
 
+      const transform = this.getComponent(Transform)
+      const transformCopy = { position: { ...transform.position }, rotation: { ...transform.rotation } }
+      transformCopy.position.y -= 0.33
+      const card = new TerminalCard(transformCopy)
+
+      this.removeComponent(OnClick)
       this.addComponent(new OnClick(
-        () => ui.displayAnnouncement('Use terminal button for action'),
+        () => ui.displayAnnouncement('Use terminal buttons for action'),
         { hoverText: "Use buttons" }
         )
       )
