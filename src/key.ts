@@ -8,7 +8,7 @@ export default class Key extends BaseEntity {
   private _icon: ui.SmallIcon
 
   constructor(transform: Transform) {
-    super(new GLTFShape('models/key_card.glb'),transform)
+    super(new GLTFShape('models/key_card.glb'), transform)
 
     this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
 
