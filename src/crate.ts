@@ -6,18 +6,21 @@ export class Crate extends Entity {
 	  engine.addEntity(this)
 	  this.addComponent(new BoxShape() )
 	  this.addComponent(transform)
-	  
+	//   this.addComponent(new AudioSource(new AudioClip("audio/Tractor.mp3")))
 	  this.addComponent(
 		 new OnPointerDown(
 			 () => {
+				
 				 transform.lookAt(Camera.instance.position)
 				 if (!this.isGrabbed) {
+					// this.getComponent(AudioSource).playOnce()
 					 this.isGrabbed = true
 					 transform.position = Vector3.Zero()
 					 transform.rotation = Quaternion.Zero()
 					 transform.position.z += 1.5
 					 this.setParent(Attachable.FIRST_PERSON_CAMERA)
 				 } else {
+					// this.getComponent(AudioSource).playOnce()
 					 let forwardVector: Vector3 = Vector3.Forward()
 						 .scale(1.5)
 						 .rotate(Camera.instance.rotation)

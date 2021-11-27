@@ -11,7 +11,8 @@ export class Box extends PhysicsEntity {
   private _world: CANNON.World
 
   constructor(shape: GLTFShape, transform: Transform) {
-    super(shape, transform)
+    super(shape, transform);
+	 this.addComponent(new AudioSource(new AudioClip("audio/quit_box.mp3")));
   }
 
   protected setBody(body: CANNON.Body) {
@@ -25,7 +26,7 @@ export class Box extends PhysicsEntity {
   public init(cannonMaterial: CANNON.Material, world: CANNON.World): void {
     this._world = world
     const body = this._body
-
+	 
     body.sleep()
     body.material = cannonMaterial
     body.linearDamping = 0.4
@@ -35,7 +36,8 @@ export class Box extends PhysicsEntity {
     this.addComponent(
       new OnPointerDown(
         () => {
-          this.playerPickup()
+          this.playerPickup();
+			
         },
         { hoverText: "Pick up", distance: 6, button: ActionButton.PRIMARY }
       )
@@ -47,13 +49,15 @@ export class Box extends PhysicsEntity {
     this._body.sleep()
     this._body.position.set(Camera.instance.position.x, Camera.instance.position.y, Camera.instance.position.z)
     this.setParent(Attachable.FIRST_PERSON_CAMERA)
-    this.getComponent(Transform).position.set(0, -0.2, 1.4)
+    this.getComponent(Transform).position.set(0, -0.2, 1.4);
+	 
   }
 
   public playerDrop(dropDirection: Vector3): void {
     this.isActive = false
     this.setParent(null)
-
+	 
+	 this.getComponent(AudioSource).playOnce();
     // Physics
     this._body.wakeUp()
     this._body.velocity.setZero()

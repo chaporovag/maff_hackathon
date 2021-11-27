@@ -10,14 +10,16 @@ export class Capsule extends Entity {
  
 	constructor( transform: Transform, deltaPosition: number) {
 		super();
-	
+
 		const startPos = transform.position;
 		const endPos = new Vector3(startPos.x + deltaPosition,startPos.y,startPos.z);
 		const cocon = new BaseEntity(new GLTFShape('models/cocon.glb'), transform)
 		const coconBase = new BaseEntity(new GLTFShape('models/cocon_base.glb'), transform)
-		
+		coconBase.addComponent(new AudioSource(new AudioClip("audio/push_back_capsule.mp3")));
 		coconBase.addComponent(
 			new OnClick(():void=>{
+
+				coconBase.getComponent(AudioSource).playOnce()
 				coconBase.getComponent(utils.ToggleComponent).toggle()
 			})
 		)

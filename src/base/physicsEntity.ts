@@ -5,6 +5,7 @@ export default class PhysicsEntity extends BaseEntity {
 
   constructor(shape: GLTFShape, transform: TransformConstructorArgs) {
     super(shape, transform);
+	 
   }
 
   public init(cannonMaterial: CANNON.Material, world: CANNON.World): void {
