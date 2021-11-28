@@ -3,12 +3,10 @@ import * as utils from "@dcl/ecs-scene-utils"
 import UpdateEvent, {EventMessage} from "./events/updateEvent";
 import global from "./core/global";
 
-export class Capsule extends Entity {
+export class Capsule {
 	private _withBattery = false
 
 	constructor(transform: Transform, deltaPosition: number) {
-		super();
-
 		const startPos = transform.position;
 		const endPos = new Vector3(startPos.x + deltaPosition, startPos.y, startPos.z);
 		const cocon = new BaseEntity(new GLTFShape('models/cocon.glb'), transform)
