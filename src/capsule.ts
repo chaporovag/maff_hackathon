@@ -24,6 +24,8 @@ export class Capsule extends Entity {
 		coconBase.addComponent(
 			new utils.ToggleComponent(utils.ToggleState.Off, (value): void => {
 				if (value === utils.ToggleState.On) {
+					coconBase.getComponent(AudioSource).playOnce()
+
 					coconBase.addComponentOrReplace(
 						new utils.MoveTransformComponent(
 							coconBase.getComponent(Transform).position,
@@ -32,23 +34,20 @@ export class Capsule extends Entity {
 							() => {
 								if (this._withBattery) {
 									global.events.fireEvent(new UpdateEvent(EventMessage.CAPSULE_OPEN))
+									coconBase.removeComponent(utils.ToggleComponent)
 								}
 							}
 						)
 					)
-
-					coconBase.getComponent(AudioSource).playOnce()
 				} else {
-					if (!this._withBattery || (this._withBattery && global.HAS_BATTERY)) {
-						coconBase.addComponentOrReplace(
-							new utils.MoveTransformComponent(
-								coconBase.getComponent(Transform).position,
-								startPos,
-								0.8
-							)
+					coconBase.addComponentOrReplace(
+						new utils.MoveTransformComponent(
+							coconBase.getComponent(Transform).position,
+							startPos,
+							0.8
 						)
-						coconBase.getComponent(AudioSource).playOnce()
-					}
+					)
+					coconBase.getComponent(AudioSource).playOnce()
 				}
 			})
 		);

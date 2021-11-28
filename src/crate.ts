@@ -1,11 +1,10 @@
-export class Crate extends Entity {
+import BaseEntity from "./base/baseEntity";
+
+export class Crate extends BaseEntity {
 	isGrabbed: boolean = false
  
-	constructor( transform: Transform) {
-	  super()
-	  engine.addEntity(this)
-	  this.addComponent(new BoxShape() )
-	  this.addComponent(transform)
+	constructor(shape: GLTFShape, transform: Transform) {
+	  super(shape, transform)
 	
 	  this.addComponent(
 		 new OnPointerDown(
@@ -17,7 +16,7 @@ export class Crate extends Entity {
 					 this.isGrabbed = true
 					 transform.position = Vector3.Zero()
 					 transform.rotation = Quaternion.Zero()
-					 transform.position.z += 1.5
+					 // transform.position.z += 1.5
 					 this.setParent(Attachable.FIRST_PERSON_CAMERA)
 				 } else {
 					

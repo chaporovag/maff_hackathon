@@ -7,6 +7,7 @@ import PhysicsSystem from "./systems/physicsSystem";
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
+import {Crate} from "./crate";
 
 const floor = new Entity();
 // Add it to the engine for rendering
@@ -18,11 +19,20 @@ floor.addComponent((new Transform({ position: new Vector3(8, 0.1, 8) })));
 const wall = new BaseEntity(new GLTFShape('models/wall11.glb'),{ position: new Vector3(3.8, 0, 8.1) });
 
 
+// const battery = new Crate(new GLTFShape('models/battery.glb'), new Transform({ position: new Vector3(15, 0, 10.5)}))
+/*
+const crate = new Crate(
+  new Transform({
+    position: new Vector3(8, 0.5, 12),
+  })
+)
+*/
 const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0.3, 8) });
 
 
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
 
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
 new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
 new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
 const batteryCapsule = new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
@@ -32,23 +42,6 @@ new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Qua
 terminal.init(squid)
 
 
-/*
-const crate = new Crate(
-  new Transform({
-    position: new Vector3(8, 0.5, 12),
-  })
-)
-const crate1 = new Crate(
-  new Transform({
-    position: new Vector3(8, 2.5, 12),
-  })
-)
-const crate2 = new Crate(
-  new Transform({
-    position: new Vector3(4, 0.5, 12),
-  })
-)
-*/
 
 
 

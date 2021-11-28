@@ -4,6 +4,7 @@ import Global from "./core/global";
 import * as ui from "@dcl/ui-scene-utils";
 import UpdateEvent, {EventMessage} from "./events/updateEvent";
 import global from "./core/global";
+import {Crate} from "./crate";
 export enum Move {
   FORWARD = 'FORWARD',
   BACK = 'BACK',
@@ -20,7 +21,7 @@ export default class Squid extends BaseEntity {
   private readonly _elements: BaseEntity[]
 
   // @ts-ignore
-  private _battery: BaseEntity
+  private _battery: Crate
   private _isActive: boolean = false
 
   constructor(shape: GLTFShape, transform: TransformConstructorArgs) {
@@ -35,10 +36,9 @@ export default class Squid extends BaseEntity {
     this._elements = [this]
     this._actionSystem = new ActionSystem(this._elements)
     engine.addSystem(this._actionSystem)
-
     global.events.addListener(UpdateEvent, null, ({ message }) => {
       if (message === EventMessage.CAPSULE_OPEN && !this._battery) {
-        this._battery = new BaseEntity(new GLTFShape('models/squid_battery.glb'), { position: new Vector3(15, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) })
+        this._battery = new Crate(new GLTFShape('models/squid_battery.glb'), new Transform({ position: new Vector3(15, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) }))
       }
     })
   }
