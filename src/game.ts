@@ -34,12 +34,12 @@ const key = new Key( new Transform({ position: new Vector3(6, 1, 12) }));
 
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
 
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
-const batteryCapsule = new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+const batteryCapsule = new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
 batteryCapsule.init()
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
 
 terminal.init(squid)
 

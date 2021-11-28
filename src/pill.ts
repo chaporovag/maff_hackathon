@@ -29,7 +29,7 @@ export default class Pill extends BaseEntity {
           onCameraEnter: () => {
 				this.getComponent(AudioSource).playOnce()
             this.getComponent(Transform).scale.setAll(0)
-            this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
+            // this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
             Global.HAS_PILL = true
           },
           onCameraExit: () => {

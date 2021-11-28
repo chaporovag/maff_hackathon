@@ -11,31 +11,27 @@ export default class Key extends BaseEntity {
     super(new GLTFShape('models/key_card.glb'), transform)
 
     this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
-	  this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
-    // Create trigger for key
-    this.addComponent(
-		 new OnPointerDown(()=>{
-			this.getComponent(Transform).scale.setAll(0)
-			         this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
-			         Global.HAS_KEY = true
-						this.getComponent(AudioSource).playOnce()
-		 })
-   //    new utils.TriggerComponent(
-   //      new utils.TriggerBoxShape(
-   //        new Vector3(0.1, 0.1, 0.1)
-   //      ),
-   //      {
-   //        onCameraEnter: () => {
-   //          this.getComponent(Transform).scale.setAll(0)
-   //          this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
-   //          Global.HAS_KEY = true
-   //        },
-   //        onCameraExit: () => {
-   //          engine.removeEntity(this)
-   //        },
-   //      }
-   //    )
-    )
+	 this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
+	//
+	//  )
+	 this.addComponent(
+      new utils.TriggerComponent(
+        new utils.TriggerBoxShape(
+         //  new Vector3(0.1, 0.1, 0.1)
+        ),
+        {
+			  
+          onCameraEnter: () => {
+				this.getComponent(AudioSource).playOnce()
+            this.getComponent(Transform).scale.setAll(0)
+            this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
+            Global.HAS_KEY = true
+          },
+          onCameraExit: () => {
+            engine.removeEntity(this)
+          },
+        }
+      ))
   }
 
   public hideIcon(): void {
