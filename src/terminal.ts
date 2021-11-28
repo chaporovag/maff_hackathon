@@ -40,7 +40,7 @@ export default class Terminal extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape('models/terminal.glb'), transform);
     new BaseEntity(new GLTFShape('models/terminal_screen.glb'), new Transform({ position: new Vector3(3,1.3,3), rotation: new Quaternion(0, 180, 0) }) )
-	 
+ 
 
     this._key = new Key(new Transform({ position: new Vector3(11, 6.6, 2) }));
     this._turnLeftBtn = new TerminalButton2({ position: new Vector3(2.56, 1.5, 3), rotation: new Quaternion(0, 0, 180) })

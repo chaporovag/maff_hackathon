@@ -4,16 +4,24 @@ import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
 import * as utils from '@dcl/ecs-scene-utils'
+
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
 import Pill from "./pill";
+import global from "./core/global";
 
-let OneSound = 1
+const squid = new Squid(new Transform({ position: new Vector3(5,0.1,10),rotation: Quaternion.Euler(0, 135, 0) }));
+const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
+const pill = new Pill(new Transform({ position: new Vector3(9, 7.5, 7) }));
+terminal.init(squid)
+
 
 const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 8) });
 const wall = new BaseEntity(new GLTFShape('models/wall.glb'),{ position: new Vector3(3.8, 0, 8.1) });
-floor.addComponent(new AudioSource(new AudioClip("audio/Close.mp3")))
+
+let wallCollider: BaseEntity
+let oneSound = 1
 floor.addComponent(
   new utils.TriggerComponent(
     new utils.TriggerBoxShape(
@@ -22,29 +30,27 @@ floor.addComponent(
     ),
     {
       onCameraEnter: () => {
-			if(OneSound) {
-			floor.getComponent(AudioSource).playOnce();
-			OneSound = 0
-		}
-        new BaseEntity(new GLTFShape("models/wall_collider.glb"), wall.getComponent(Transform))
+        if (global.HAS_PILL) return
+        if (!wallCollider) {
+          wallCollider = new BaseEntity(new GLTFShape("models/wall_collider.glb"), { position: wall.getComponent(Transform).position.clone() })
+          pill.init(wallCollider)
+        }
+
+        floor.removeComponent(utils.ToggleComponent)
+        if (oneSound) {
+          floor.getComponent(AudioSource).playOnce();
+          oneSound = 0
+        }
       }
     }
   )
 )
 
-
-const pill = new Pill( new Transform({ position: new Vector3(9, 7.5, 7) }));
-
-const squid = new Squid(new Transform({ position: new Vector3(5,0.1,10),rotation: Quaternion.Euler(0, 135, 0) }));
-const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
-terminal.init(squid)
-
-new Capsule( new Transform({ position: new Vector3(15.5, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
-new Capsule( new Transform({ position: new Vector3(15.5, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
-new Capsule( new Transform({ position: new Vector3(15.5, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
-new Capsule( new Transform({ position: new Vector3(15.5, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5).init();
-new Capsule( new Transform({ position: new Vector3(15.5, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
-
+new Capsule( new Transform({ position: new Vector3(15.2, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(15.2, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(15.2, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(15.2, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5).init();
+new Capsule( new Transform({ position: new Vector3(15.2, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
 
 // Create balls
 const boxSmall = new BoxSmall(new Transform({ position: new Vector3(10, 0.5, 14) }))
