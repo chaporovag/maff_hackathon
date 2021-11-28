@@ -22,7 +22,7 @@ export default class Pill extends BaseEntity {
 	 this.addComponent(
       new utils.TriggerComponent(
         new utils.TriggerBoxShape(
-          new Vector3(1, 1, 1)
+          new Vector3(.1, .1, .1)
         ),
         {
 			  
@@ -33,7 +33,8 @@ export default class Pill extends BaseEntity {
             Global.HAS_PILL = true
           },
           onCameraExit: () => {
-            engine.removeEntity(this)
+            // engine.removeEntity(this)
+				// this.getComponent(AudioSource).playOnce()
           },
         }
       ))
