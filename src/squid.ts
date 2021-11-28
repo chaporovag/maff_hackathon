@@ -2,6 +2,8 @@ import ActionSystem from "./systems/actionSystem";
 import BaseEntity from "./base/baseEntity";
 import Global from "./core/global";
 import * as ui from "@dcl/ui-scene-utils";
+import UpdateEvent, {EventMessage} from "./events/updateEvent";
+import global from "./core/global";
 export enum Move {
   FORWARD = 'FORWARD',
   BACK = 'BACK',
@@ -16,20 +18,32 @@ export default class Squid extends BaseEntity {
 
   private readonly _actionSystem: ActionSystem
   private readonly _elements: BaseEntity[]
+
+  // @ts-ignore
+  private _battery: BaseEntity
   private _isActive: boolean = false
-  private readonly _battery: BaseEntity
 
   constructor(shape: GLTFShape, transform: TransformConstructorArgs) {
     super(shape, transform);
-    this.addComponent(new OnPointerDown(()=> this._checkState()))
+    this.addComponent(new OnPointerDown(()=> this._checkState(),
+      {
+        button: ActionButton.PRIMARY,
+        distance: 4
+      })
+    )
+
     this._elements = [this]
     this._actionSystem = new ActionSystem(this._elements)
     engine.addSystem(this._actionSystem)
 
-    this._battery = new BaseEntity(new GLTFShape('models/squid_battery.glb'), { position: new Vector3(15.5, -0.8, 10.5) })
+    global.events.addListener(UpdateEvent, null, ({ message }) => {
+      if (message === EventMessage.CAPSULE_OPEN && !this._battery) {
+        this._battery = new BaseEntity(new GLTFShape('models/squid_battery.glb'), { position: new Vector3(15, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) })
+      }
+    })
   }
 
-  private _checkState() {
+  private _checkState(): void {
     if (Global.HAS_BATTERY && !this._isActive) {
       this._isActive = true
       this.removeComponent(OnPointerDown)
@@ -45,7 +59,7 @@ export default class Squid extends BaseEntity {
     }
   }
 
-  public move (dir?: Move) {
+  public move (dir?: Move):void {
 	// this.getComponent(AudioSource).playOnce()
     switch (dir) {
       case Move.FORWARD:
@@ -59,7 +73,7 @@ export default class Squid extends BaseEntity {
     }
   }
 
-  public rotate (dir?: Rotate) {
+  public rotate (dir?: Rotate):void {
     switch (dir) {
       case Rotate.RIGHT:
         this._actionSystem.turnRight()

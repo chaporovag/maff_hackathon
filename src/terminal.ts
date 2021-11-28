@@ -33,7 +33,7 @@ export default class Terminal extends BaseEntity {
     new BaseEntity(new GLTFShape('models/terminal2_screen.glb'), transform)
     this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
 
-    this._key = new Key(new Transform({ position: new Vector3(15.5, 5.1, 8) }));
+    this._key = new Key(new Transform({ position: new Vector3(11, 5.1, 12) }));
 
     this._turnLeftBtn = new TerminalButton({ position: new Vector3(2.56, 0, 3), rotation: new Quaternion(0, 90, 0) })
     this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 0, 3), rotation: new Quaternion(0, 90, 0) })

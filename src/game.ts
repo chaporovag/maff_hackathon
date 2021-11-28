@@ -4,11 +4,9 @@ import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
 
-import Key from "./key";
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
-
 
 const floor = new Entity();
 // Add it to the engine for rendering
@@ -27,11 +25,13 @@ const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rot
 
 new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
 new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+const batteryCapsule = new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+batteryCapsule.init()
 new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
 
 terminal.init(squid)
-	
+
+
 /*
 const crate = new Crate(
   new Transform({
