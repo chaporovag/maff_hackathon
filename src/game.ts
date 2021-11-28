@@ -3,12 +3,12 @@ import BaseEntity from "./base/baseEntity";
 import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
-
+import Key from "./key";
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
 import {Crate} from "./crate";
-
+import Pill from "./pill";
 const floor = new Entity();
 // Add it to the engine for rendering
 engine.addEntity(floor);
@@ -28,6 +28,8 @@ const crate = new Crate(
 )
 */
 const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0.3, 8) });
+const pill = new Pill( new Transform({ position: new Vector3(8, 1, 12) }));
+const key = new Key( new Transform({ position: new Vector3(6, 1, 12) }));
 
 
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
