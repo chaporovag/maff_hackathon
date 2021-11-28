@@ -8,15 +8,16 @@ export default class Battery extends BaseEntity {
 
   constructor(transform: Transform) {
     super(new GLTFShape('models/squid_battery.glb'), transform)
-	 this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
+	  this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
     // Create trigger for key
     this.addComponent(
-		 new OnPointerDown(()=>{
-			this.getComponent(Transform).scale.setAll(0)
-			         this._icon = new ui.SmallIcon("images/battery.jpg", -50, 200, 100, 100)
-			         Global.HAS_BATTERY = true
-						this.getComponent(AudioSource).playOnce()
-		 })
+      new OnPointerDown(()=>{
+        this.getComponent(Transform).scale.setAll(0)
+			  this._icon = new ui.SmallIcon("images/battery.jpg", -50, 200, 100, 100)
+        this.getComponent(AudioSource).playOnce()
+        Global.HAS_BATTERY = true
+		 },
+        { hoverText: "Puck up", distance: 8, button: ActionButton.POINTER })
     )
   }
 
