@@ -13,7 +13,7 @@ import global from "./core/global";
 
 const squid = new Squid(new Transform({ position: new Vector3(5,0.1,10),rotation: Quaternion.Euler(0, 135, 0) }));
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
-const pill = new Pill(new Transform({ position: new Vector3(9, 7.5, 7) }));
+const pill = new Pill(new Transform({ position: new Vector3(12, 7.5, 6) }));
 terminal.init(squid)
 
 

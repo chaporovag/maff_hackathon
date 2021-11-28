@@ -17,7 +17,7 @@ export default class Key extends BaseEntity {
 	 this.addComponent(
       new utils.TriggerComponent(
         new utils.TriggerBoxShape(
-          new Vector3(0.2, 0.2, 0.2)
+          new Vector3(0.3, 0.3, 0.3)
         ),
         {
 			  
