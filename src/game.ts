@@ -3,49 +3,53 @@ import BaseEntity from "./base/baseEntity";
 import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
-import Key from "./key";
+import * as utils from '@dcl/ecs-scene-utils'
+
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
-import {Crate} from "./crate";
 import Pill from "./pill";
-const floor = new Entity();
-// Add it to the engine for rendering
-engine.addEntity(floor);
-// Give it a component for the model itself
-floor.addComponent(new GLTFShape("models/floor.glb"));
-floor.addComponent((new Transform({ position: new Vector3(8, 0.1, 8) })));
 
+
+const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 8) });
 const wall = new BaseEntity(new GLTFShape('models/wall11.glb'),{ position: new Vector3(3.8, 0, 8.1) });
 
-
-// const battery = new Crate(new GLTFShape('models/battery.glb'), new Transform({ position: new Vector3(15, 0, 10.5)}))
-/*
-const crate = new Crate(
-  new Transform({
-    position: new Vector3(8, 0.5, 12),
-  })
+floor.addComponent(
+  new utils.TriggerComponent(
+    new utils.TriggerBoxShape(
+      new Vector3(12, 12, 12),
+      new Vector3(0, 0, 0)
+    ),
+    {
+      onCameraEnter: () => {
+        new BaseEntity(new GLTFShape("models/wall_collider.glb"), wall.getComponent(Transform))
+      }
+    }
+  )
 )
-*/
-const squid = new Squid(new GLTFShape('models/squid.glb'), { position: new Vector3(6, 0.3, 8) });
+
+
 const pill = new Pill( new Transform({ position: new Vector3(8, 1, 12) }));
-const key = new Key( new Transform({ position: new Vector3(6, 1, 12) }));
+// const key = new Key( new Transform({ position: new Vector3(6, 1, 12) }));
 
-
+const squid = new Squid(new Transform({ position: new Vector3(6, 0.3, 8) }));
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
-
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
-const batteryCapsule = new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
-batteryCapsule.init()
-new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
-
 terminal.init(squid)
 
-
-
-
+// <<<<<<< HEAD
+// new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// const batteryCapsule = new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// batteryCapsule.init()
+// new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// =======
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2).init();
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+// >>>>>>> 560495213eda934467b5d11b56e1989085141553
 
 // Create balls
 const boxSmall = new BoxSmall(new Transform({ position: new Vector3(12, 0.5, 6) }))

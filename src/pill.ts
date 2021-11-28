@@ -11,7 +11,7 @@ export default class Pill extends BaseEntity {
     super(new GLTFShape("models/Pill.glb"), transform)
 
     this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
-	 this.addComponent(new AudioSource(new AudioClip("audio/tablet_take.mp3")))
+	  this.addComponent(new AudioSource(new AudioClip("audio/tablet_take.mp3")))
 	//  this.addComponent(
 	// 	new OnPointerDown(()=>{
 	// 		this.getComponent(Transform).scale.setAll(0)

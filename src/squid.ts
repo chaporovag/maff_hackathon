@@ -4,7 +4,7 @@ import Global from "./core/global";
 import * as ui from "@dcl/ui-scene-utils";
 import UpdateEvent, {EventMessage} from "./events/updateEvent";
 import global from "./core/global";
-import {Crate} from "./crate";
+import Battery from "./battery";
 export enum Move {
   FORWARD = 'FORWARD',
   BACK = 'BACK',
@@ -21,11 +21,11 @@ export default class Squid extends BaseEntity {
   private readonly _elements: BaseEntity[]
 
   // @ts-ignore
-  private _battery: Crate
+  private _battery: Battery
   private _isActive: boolean = false
 
-  constructor(shape: GLTFShape, transform: TransformConstructorArgs) {
-    super(shape, transform);
+  constructor(transform: TransformConstructorArgs) {
+    super(new GLTFShape('models/squid.glb'), transform);
     this.addComponent(new OnPointerDown(()=> this._checkState(),
       {
         button: ActionButton.PRIMARY,
@@ -38,7 +38,7 @@ export default class Squid extends BaseEntity {
     engine.addSystem(this._actionSystem)
     global.events.addListener(UpdateEvent, null, ({ message }) => {
       if (message === EventMessage.CAPSULE_OPEN && !this._battery) {
-        this._battery = new Crate(new GLTFShape('models/squid_battery.glb'), new Transform({ position: new Vector3(15, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) }))
+        this._battery = new Battery(new Transform({ position: new Vector3(15, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) }))
       }
     })
   }
@@ -50,6 +50,8 @@ export default class Squid extends BaseEntity {
 
       this._battery.getComponent(Transform).position = this.getComponent(Transform).position
       this._battery.getComponent(Transform).rotation = this.getComponent(Transform).rotation
+      this._battery.getComponent(Transform).scale = Vector3.One()
+      this._battery.hideIcon()
       this._elements.push(this._battery)
 
       this.addComponent(new AudioSource(new AudioClip("audio/Tractor.mp3")))
@@ -60,6 +62,7 @@ export default class Squid extends BaseEntity {
   }
 
   public move (dir?: Move):void {
+    if (!Global.HAS_BATTERY) return
 	// this.getComponent(AudioSource).playOnce()
     switch (dir) {
       case Move.FORWARD:
@@ -74,6 +77,7 @@ export default class Squid extends BaseEntity {
   }
 
   public rotate (dir?: Rotate):void {
+    if (!Global.HAS_BATTERY) return
     switch (dir) {
       case Rotate.RIGHT:
         this._actionSystem.turnRight()
