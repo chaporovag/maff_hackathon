@@ -28,10 +28,7 @@ export class Crate extends Entity {
 						transform.lookAt(Camera.instance.position)
 						transform.rotation.x = 0
 						transform.rotation.z = 0
-						// let distance = Vector3.Down().scale(.1)
-						// transform.translate(distance)
 						this.isGrabbed = false
-						// transform.position.y = 0.5
 						this.setParent(null) // Remove parent
 					}
 				},

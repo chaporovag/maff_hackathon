@@ -53,7 +53,6 @@ export class Box extends PhysicsEntity {
     this.setParent(Attachable.FIRST_PERSON_CAMERA)
     this.getComponent(Transform).position.set(0, -0.2, 1.5);
 	 
-	//  movePlayerTo({ x: Camera.instance.feetPosition.x+0.01, y: Camera.instance.feetPosition.y, z: Camera.instance.feetPosition.z })
   }
 
   public playerDrop(dropDirection: Vector3): void {

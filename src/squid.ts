@@ -54,7 +54,7 @@ export default class Squid extends BaseEntity {
       this._battery.hideIcon()
       this._elements.push(this._battery)
 
-      this.addComponent(new AudioSource(new AudioClip("audio/Tractor.mp3")))
+      this.addComponent(new AudioSource(new AudioClip("audio/quit_box.mp3")))
       this.getComponent(AudioSource).playOnce()
     } else {
       ui.displayAnnouncement('Not enough energy');
