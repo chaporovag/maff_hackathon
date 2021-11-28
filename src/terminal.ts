@@ -6,7 +6,13 @@ import Key from "./key";
 
 class TerminalButton extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
-    super(new GLTFShape('models/terminal2_btn.glb'), transform);
+    super(new GLTFShape('models/terminal_btn.glb'), transform);
+  }
+}
+
+class TerminalButton2 extends BaseEntity {
+  constructor(transform: TransformConstructorArgs) {
+    super(new GLTFShape('models/terminal_btn2.glb'), transform);
   }
 }
 
@@ -29,16 +35,16 @@ export default class Terminal extends BaseEntity {
   private _key: Key
 
   constructor(transform: TransformConstructorArgs) {
-    super(new GLTFShape('models/terminal2.glb'), transform);
-    new BaseEntity(new GLTFShape('models/terminal2_screen.glb'), transform)
+    super(new GLTFShape('models/terminal.glb'), transform);
+    new BaseEntity(new GLTFShape('models/terminal_screen.glb'), new Transform({ position: new Vector3(3,1.3,3), rotation: new Quaternion(0, 180, 0) }) )
     this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
 
     this._key = new Key(new Transform({ position: new Vector3(11, 5.1, 12) }));
 
-    this._turnLeftBtn = new TerminalButton({ position: new Vector3(2.56, 0, 3), rotation: new Quaternion(0, 90, 0) })
-    this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 0, 3), rotation: new Quaternion(0, 90, 0) })
-    this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 0, 3), rotation: new Quaternion(0, 90, 0) })
-    this._turnRightBtn = new TerminalButton({ position: new Vector3(3.45, 0, 3), rotation: new Quaternion(0, 90, 0) })
+    this._turnLeftBtn = new TerminalButton2({ position: new Vector3(2.56, 1.5, 3), rotation: new Quaternion(0, 0, 180) })
+    this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 1.5, 3), rotation: new Quaternion(0, 0, 180) })
+    this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 1.5, 3), rotation: new Quaternion(0, 0, 0) })
+    this._turnRightBtn = new TerminalButton2({ position: new Vector3(3.45, 1.5, 3), rotation: new Quaternion(0, 0, 0) })
 
     this.addComponent(new OnClick(
       () => {

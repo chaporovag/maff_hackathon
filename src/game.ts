@@ -12,7 +12,7 @@ import Pill from "./pill";
 
 
 const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 8) });
-const wall = new BaseEntity(new GLTFShape('models/wall11.glb'),{ position: new Vector3(3.8, 0, 8.1) });
+const wall = new BaseEntity(new GLTFShape('models/wall.glb'),{ position: new Vector3(3.8, 0, 8.1) });
 
 floor.addComponent(
   new utils.TriggerComponent(
@@ -31,6 +31,7 @@ floor.addComponent(
 
 const pill = new Pill( new Transform({ position: new Vector3(8, 1.5, 12) }));
 // const key = new Key( new Transform({ position: new Vector3(6, 1, 12) }));
+
 
 const squid = new Squid(new Transform({ position: new Vector3(5,0.1,10),rotation: Quaternion.Euler(0, 135, 0) }));
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))

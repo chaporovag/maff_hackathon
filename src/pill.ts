@@ -8,7 +8,7 @@ export default class Pill extends BaseEntity {
   private _icon: ui.SmallIcon
 
   constructor(transform: Transform) {
-    super(new GLTFShape("models/Pill.glb"), transform)
+    super(new GLTFShape("models/pill_red.glb"), transform)
 
     this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
 	  this.addComponent(new AudioSource(new AudioClip("audio/tablet_take.mp3")))
