@@ -8,16 +8,16 @@ import * as utils from '@dcl/ecs-scene-utils'
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
+import Pill from "./pill";
 
 
 const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 8) });
 const wall = new BaseEntity(new GLTFShape('models/wall11.glb'),{ position: new Vector3(3.8, 0, 8.1) });
 
-// wall.getComponent(Shape).withCollisions = false
 floor.addComponent(
   new utils.TriggerComponent(
     new utils.TriggerBoxShape(
-      new Vector3(15, 15, 15),
+      new Vector3(12, 12, 12),
       new Vector3(0, 0, 0)
     ),
     {
@@ -29,6 +29,8 @@ floor.addComponent(
 )
 
 
+const pill = new Pill( new Transform({ position: new Vector3(8, 1, 12) }));
+// const key = new Key( new Transform({ position: new Vector3(6, 1, 12) }));
 
 const squid = new Squid(new Transform({ position: new Vector3(6, 0.3, 8) }));
 const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
