@@ -47,7 +47,6 @@ export default class Squid extends BaseEntity {
     if (Global.HAS_BATTERY && !this._isActive) {
       this._isActive = true
       this.removeComponent(OnPointerDown)
-
       this._battery.getComponent(Transform).position = this.getComponent(Transform).position
       this._battery.getComponent(Transform).rotation = this.getComponent(Transform).rotation
       this._battery.getComponent(Transform).scale = Vector3.One()
