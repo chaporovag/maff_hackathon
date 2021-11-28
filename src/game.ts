@@ -29,7 +29,7 @@ floor.addComponent(
 )
 
 
-const pill = new Pill( new Transform({ position: new Vector3(8, 3.5, 7) }));
+const pill = new Pill( new Transform({ position: new Vector3(9, 7.5, 7) }));
 // const key = new Key( new Transform({ position: new Vector3(6, 1, 12) }));
 
 
