@@ -13,7 +13,7 @@ export default class Battery extends BaseEntity {
     this.addComponent(
 		 new OnPointerDown(()=>{
 			this.getComponent(Transform).scale.setAll(0)
-			         this._icon = new ui.SmallIcon("images/key.png", -70, 255, 100, 100)
+			         this._icon = new ui.SmallIcon("images/battery.jpg", -50, 200, 100, 100)
 			         Global.HAS_BATTERY = true
 						this.getComponent(AudioSource).playOnce()
 		 })

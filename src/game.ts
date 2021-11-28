@@ -29,22 +29,32 @@ floor.addComponent(
 )
 
 
-const pill = new Pill( new Transform({ position: new Vector3(8, 1, 12) }));
+const pill = new Pill( new Transform({ position: new Vector3(8, 1.5, 12) }));
 // const key = new Key( new Transform({ position: new Vector3(6, 1, 12) }));
 
-const squid = new Squid(new Transform({ position: new Vector3(6, 0.3, 8) }));
-const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3), rotation: Quaternion.Euler(0, 180, 0) }))
+
+const squid = new Squid(new Transform({ position: new Vector3(5,0.1,10),rotation: Quaternion.Euler(0, 135, 0) }));
+const terminal = new Terminal(new Transform({ position: new Vector3(3,0.1,3),rotation: Quaternion.Euler(0, 180, 0) }))
 terminal.init(squid)
 
-new Capsule( new Transform({ position: new Vector3(15, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
-new Capsule( new Transform({ position: new Vector3(15, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
-new Capsule( new Transform({ position: new Vector3(15, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
-new Capsule( new Transform({ position: new Vector3(15, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2).init();
-new Capsule( new Transform({ position: new Vector3(15, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.2);
+// <<<<<<< HEAD
+// new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// const batteryCapsule = new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// batteryCapsule.init()
+// new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.6);
+// =======
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 2) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 5) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 8) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 11) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5).init();
+new Capsule( new Transform({ position: new Vector3(15.8, 0.1, 14) ,rotation: Quaternion.Euler(0, 270, 0) }), -1.5);
+// >>>>>>> 560495213eda934467b5d11b56e1989085141553
 
 // Create balls
-const boxSmall = new BoxSmall(new Transform({ position: new Vector3(12, 0.5, 6) }))
-const boxBig = new BoxBig(new Transform({ position: new Vector3(12, 0.5, 10) }))
+const boxSmall = new BoxSmall(new Transform({ position: new Vector3(10, 0.5, 14) }))
+const boxBig = new BoxBig(new Transform({ position: new Vector3(12, 0.5, 14) }))
 
 const boxes: Box[] = [boxSmall, boxBig]
 const physicsSystem = new PhysicsSystem()

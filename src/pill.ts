@@ -22,7 +22,7 @@ export default class Pill extends BaseEntity {
 	 this.addComponent(
       new utils.TriggerComponent(
         new utils.TriggerBoxShape(
-         //  new Vector3(0.1, 0.1, 0.1)
+          new Vector3(1, 1, 1)
         ),
         {
 			  

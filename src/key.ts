@@ -10,21 +10,21 @@ export default class Key extends BaseEntity {
   constructor(transform: Transform) {
     super(new GLTFShape('models/key_card.glb'), transform)
 
-    this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
+    this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 255, 0)))
 	 this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
 	//
 	//  )
 	 this.addComponent(
       new utils.TriggerComponent(
         new utils.TriggerBoxShape(
-         //  new Vector3(0.1, 0.1, 0.1)
+          new Vector3(0.5, 0.5, 0.5)
         ),
         {
 			  
           onCameraEnter: () => {
 				this.getComponent(AudioSource).playOnce()
             this.getComponent(Transform).scale.setAll(0)
-            this._icon = new ui.SmallIcon("images/key.png", -70, 355, 100, 100)
+            this._icon = new ui.SmallIcon("images/key.jpg", -50, 355, 100, 100)
             Global.HAS_KEY = true
           },
           onCameraExit: () => {
