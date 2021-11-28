@@ -17,7 +17,7 @@ export default class Battery extends BaseEntity {
         this.getComponent(AudioSource).playOnce()
         Global.HAS_BATTERY = true
 		 },
-        { hoverText: "Puck up", distance: 8, button: ActionButton.POINTER })
+        { hoverText: "Puck up", distance: 8 })
     )
   }
 

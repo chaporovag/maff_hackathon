@@ -20,6 +20,8 @@ terminal.init(squid)
 const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 8) });
 const wall = new BaseEntity(new GLTFShape('models/wall.glb'),{ position: new Vector3(3.8, 0, 8.1) });
 
+let wallCollider: BaseEntity
+let oneSound = 1
 floor.addComponent(
   new utils.TriggerComponent(
     new utils.TriggerBoxShape(
@@ -29,9 +31,16 @@ floor.addComponent(
     {
       onCameraEnter: () => {
         if (global.HAS_PILL) return
+        if (!wallCollider) {
+          wallCollider = new BaseEntity(new GLTFShape("models/wall_collider.glb"), { position: wall.getComponent(Transform).position.clone() })
+          pill.init(wallCollider)
+        }
+
         floor.removeComponent(utils.ToggleComponent)
-        const wallCollider = new BaseEntity(new GLTFShape("models/wall_collider.glb"), { position: wall.getComponent(Transform).position.clone() })
-        pill.init(wallCollider)
+        if (oneSound) {
+          floor.getComponent(AudioSource).playOnce();
+          oneSound = 0
+        }
       }
     }
   )

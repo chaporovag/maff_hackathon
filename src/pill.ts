@@ -9,7 +9,7 @@ export default class Pill extends BaseEntity {
   private _wallCollider: BaseEntity
 
   constructor(transform: Transform) {
-    super(new GLTFShape("models/pill_red.glb"), transform)
+    super(new GLTFShape("models/pill_blue.glb"), transform)
 
     this.addComponent(new utils.KeepRotatingComponent(Quaternion.Euler(0, 45, 0)))
 	  this.addComponent(new AudioSource(new AudioClip("audio/tablet_take.mp3")))

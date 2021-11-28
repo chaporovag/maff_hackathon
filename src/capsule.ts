@@ -17,7 +17,7 @@ export class Capsule {
 			new OnClick((): void => {
 				coconBase.getComponent(utils.ToggleComponent).toggle()
 				},
-				{ distance: 5, button: ActionButton.POINTER }
+				{ distance: 5 }
 			)
 		)
 
