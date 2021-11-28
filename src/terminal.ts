@@ -73,15 +73,11 @@ export default class Terminal extends BaseEntity {
       //  const sources = new AudioSource(Disk)
       // 	sources.playing = true
 
-      const transform = this.getComponent(Transform)
-      const transformCopy = { position: { ...transform.position }, rotation: { ...transform.rotation } }
-      transformCopy.position.y -= 0.33
-      // @ts-ignore
-      const card = new TerminalCard(transformCopy)
+      new TerminalCard(this.getComponent(Transform))
 
       this.removeComponent(OnClick)
       this.addComponent(new OnClick(
-        () => ui.displayAnnouncement('Use terminal buttons for action'),
+        () => ui.displayAnnouncement('Use screen buttons for action'),
         { hoverText: "Use buttons" }
         )
       )
