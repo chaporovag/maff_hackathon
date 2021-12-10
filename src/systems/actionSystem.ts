@@ -1,4 +1,5 @@
 import BaseEntity from "../base/baseEntity";
+import Squid from "../squid";
 
 export default class ActionSystem implements ISystem {
 
@@ -6,35 +7,52 @@ export default class ActionSystem implements ISystem {
   private _turnDirection: number
   private _moveDirection: number
 
+  private _squad: Squid
+
   constructor(entity: BaseEntity[]) {
     this._entity = entity
     this._turnDirection = 0
     this._moveDirection = 0
+    this._squad = entity[0] as Squid
   }
 
   update () {
     if (this._moveDirection) {
       const direction = this._moveDirection
       if (direction != 0) {
+        this._squad.isActive = true
         this._entity.forEach(item => {
           const transform = item.getComponent(Transform)
           const distance = Vector3.Forward().rotate(transform.rotation)
           const sign = direction < 0 ? -1 : 1
-          transform.translate(distance.scale(sign * 0.05))
+          const delta = distance.scale(sign * 0.05)
+          const newPos = Vector3.Zero().copyFrom(transform.position).add(delta)
+          if (!(newPos.x > 10.5 || newPos.x < 5.25 || newPos.z > 10.5 || newPos.z < 5.5)) {
+            transform.translate(delta)
+          }
         })
+        const position = this._squad.getComponent(Transform).position
+        this._squad.getBody().position = new CANNON.Vec3(position.x, position.y, position.z)
+        this._squad.isActive = false
       }
     }
 
     if (this._turnDirection) {
       const direction = this._turnDirection
       const sign = direction < 0 ? -1 : 1
+      this._squad.isActive = true
       this._entity.forEach(item => {
+        this._squad.isActive = true
         const transform = item.getComponent(Transform)
         if (sign > 0)
           transform.rotate(Vector3.Up(), 2)
         else
           transform.rotate(Vector3.Down(), 2)
       })
+      const rotation = this._squad.getComponent(Transform).rotation
+      const angle = rotation.eulerAngles.y / 180 * Math.PI
+      this._squad.getBody().quaternion.setFromAxisAngle(new CANNON.Vec3(0,1,0), angle);
+      this._squad.isActive = false
     }
   }
 

@@ -9,45 +9,48 @@ export class Capsule {
 	constructor(transform: Transform, deltaPosition: number) {
 		const startPos = transform.position;
 		const endPos = new Vector3(startPos.x + deltaPosition, startPos.y, startPos.z);
-		const cocon = new BaseEntity(new GLTFShape('models/cocon.glb'), transform)
-		const coconBase = new BaseEntity(new GLTFShape('models/cocon_base.glb'), transform)
-		coconBase.addComponent(new AudioSource(new AudioClip("audio/push_back_capsule.mp3")));
+		const cocoon = new BaseEntity(new GLTFShape('models/cocoon.glb'), transform)
+		const cocoonBase = new BaseEntity(new GLTFShape('models/cocoon_base.glb'), transform)
+		cocoonBase.addComponent(new AudioSource(new AudioClip("audio/push_back_capsule.mp3")));
 
-		coconBase.addComponent(
+		cocoonBase.addComponent(
 			new OnClick((): void => {
-				coconBase.getComponent(utils.ToggleComponent).toggle()
-				},
-				{ distance: 5 }
+				const toggleComponent = cocoonBase.getComponent(utils.ToggleComponent)
+				if (!this._withBattery || (this._withBattery && !global.HAS_BATTERY && !toggleComponent.isOn()) || (this._withBattery && global.HAS_BATTERY)) {
+					toggleComponent.toggle()
+				}},
+				{
+					distance: 4
+				}
 			)
 		)
 
-		coconBase.addComponent(
+		cocoonBase.addComponent(
 			new utils.ToggleComponent(utils.ToggleState.Off, (value): void => {
 				if (value === utils.ToggleState.On) {
-					coconBase.getComponent(AudioSource).playOnce()
+					cocoonBase.getComponent(AudioSource).playOnce()
 
-					coconBase.addComponentOrReplace(
+					cocoonBase.addComponentOrReplace(
 						new utils.MoveTransformComponent(
-							coconBase.getComponent(Transform).position,
+							cocoonBase.getComponent(Transform).position,
 							endPos,
 							0.8,
 							() => {
 								if (this._withBattery) {
 									global.events.fireEvent(new UpdateEvent(EventMessage.CAPSULE_OPEN))
-									coconBase.removeComponent(utils.ToggleComponent)
 								}
 							}
 						)
 					)
 				} else {
-					coconBase.addComponentOrReplace(
+					cocoonBase.addComponentOrReplace(
 						new utils.MoveTransformComponent(
-							coconBase.getComponent(Transform).position,
+							cocoonBase.getComponent(Transform).position,
 							startPos,
 							0.8
 						)
 					)
-					coconBase.getComponent(AudioSource).playOnce()
+					cocoonBase.getComponent(AudioSource).playOnce()
 				}
 			})
 		);

@@ -7,14 +7,7 @@ import Key from "./key";
 class TerminalButton extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape('models/terminal_btn.glb'), transform);
-	 this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
-  }
-}
-
-class TerminalButton2 extends BaseEntity {
-  constructor(transform: TransformConstructorArgs) {
-    super(new GLTFShape('models/terminal_btn2.glb'), transform);
-	 this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
+	  this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
   }
 }
 
@@ -39,25 +32,34 @@ export default class Terminal extends BaseEntity {
 
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape('models/terminal.glb'), transform);
-    new BaseEntity(new GLTFShape('models/terminal_screen.glb'), new Transform({ position: new Vector3(3,1.3,3), rotation: new Quaternion(0, 180, 0) }) )
- 
+    const screen = new BaseEntity(new GLTFShape('models/terminal_screen.glb'), new Transform({ position: new Vector3(0,0.95,0.2) }) )
+    screen.setParent(this)
 
     this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 2) }));
-    this._turnLeftBtn = new TerminalButton2({ position: new Vector3(2.56, 1.5, 3), rotation: new Quaternion(0, 0, 180) })
-    this._moveFwdBtn = new TerminalButton({ position: new Vector3(2.88, 1.5, 3), rotation: new Quaternion(0, 0, 180) })
-    this._moveBackBtn = new TerminalButton({ position: new Vector3(3.17, 1.5, 3), rotation: new Quaternion(0, 0, 0) })
-    this._turnRightBtn = new TerminalButton2({ position: new Vector3(3.45, 1.5, 3), rotation: new Quaternion(0, 0, 0) })
 
-    this.addComponent(new OnClick(
-      () => {
+    this._turnRightBtn = new TerminalButton({ position: new Vector3(-0.4, 1.5, 0.2) })
+    this._moveFwdBtn = new TerminalButton({ position: new Vector3(-0.15, 1.5, 0.2) })
+    this._moveBackBtn = new TerminalButton({ position: new Vector3(0.15, 1.5, 0.2) })
+    this._turnLeftBtn = new TerminalButton({ position: new Vector3(0.4, 1.5, 0.2)})
+
+    this._turnLeftBtn.setParent(this)
+    this._moveFwdBtn.setParent(this)
+    this._moveBackBtn.setParent(this)
+    this._turnRightBtn.setParent(this)
+
+    this._turnLeftBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 90)
+    this._moveFwdBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 180)
+    this._turnRightBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), -90)
+
+    this.addComponent(
+      new OnClick(() => {
         this._checkState();
-		  const clip = new AudioClip("audio/Tractor.mp3")
-		  const source = new AudioSource(clip)
-		  this.addComponent(source);
-		  source.loop = true
       },
-      { hoverText: "Insert the key", distance: 6, button: ActionButton.PRIMARY }
-      )
+      {
+        hoverText: "Insert the key",
+        distance: 6,
+        button: ActionButton.PRIMARY
+      })
     )
   }
 
@@ -97,57 +99,48 @@ export default class Terminal extends BaseEntity {
     this._moveFwdBtn.addComponent(
       new OnPointerDown((): void => {
         squid.move(Move.FORWARD);
-		  this.getComponent(AudioSource).playing=true;
       },
         { hoverText: "Move forward" })
     )
     this._moveFwdBtn.addComponent(
       new OnPointerUp((): void => {
         squid.move();
-		  this.getComponent(AudioSource).playing=false;
       })
     )
 
     this._moveBackBtn.addComponent(
       new OnPointerDown((): void => {
         squid.move(Move.BACK);
-		  this.getComponent(AudioSource).playing=true;
       },
         { hoverText: "Move back" })
     )
     this._moveBackBtn.addComponent(
       new OnPointerUp((): void => {
         squid.move();
-		  this.getComponent(AudioSource).playing=false;
       })
     )
 
     this._turnRightBtn.addComponent(
       new OnPointerDown((): void => {
         squid.rotate(Rotate.RIGHT);
-		  this.getComponent(AudioSource).playing=true;;
       },
         { hoverText: "Turn right" })
     )
     this._turnRightBtn.addComponent(
       new OnPointerUp((): void => {
         squid.rotate();
-		  this.getComponent(AudioSource).playing=false;
-		 
       })
     )
 
     this._turnLeftBtn.addComponent(
       new OnPointerDown((): void => {
         squid.rotate(Rotate.LEFT);
-		  this.getComponent(AudioSource).playing=true;
       },
         { hoverText: "Turn left" })
     )
     this._turnLeftBtn.addComponent(
       new OnPointerUp((): void => {
         squid.rotate();
-		  this.getComponent(AudioSource).playing=false;
       })
     )
   }
