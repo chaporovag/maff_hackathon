@@ -13,8 +13,19 @@ import global from "./core/global";
 import * as ui from "@dcl/ui-scene-utils";
 import { addWall } from "./wall";
 import { Talk } from "./talk";
+const Start = new Entity()
+		engine.addEntity(Start)
+		Start.addComponent(new AudioSource(new AudioClip("audio/Ambient.mp3"))).playing = true;
+		Start.addComponent(new Transform({position: new Vector3(8,11,8)}))
+     
+		
 export let myNPC = new NPC({ position: new Vector3(10, 1, 10) }, 'models/box_big.glb', () => {
-	myNPC.talk(Talk, 0)
+	myNPC.talk(Talk, 0);
+	const Click = new Entity()
+		engine.addEntity(Click)
+		Click.addComponent(new AudioSource(new AudioClip("audio/Click.mp3")))
+     
+		Click.getComponent(AudioSource).playOnce();
  },{
 	onlyClickTrigger: true,
 	

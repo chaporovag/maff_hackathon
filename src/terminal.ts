@@ -7,14 +7,14 @@ import Key from "./key";
 class TerminalButton extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape('models/terminal_btn.glb'), transform);
-	  this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
+	//   this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
   }
 }
 
 class TerminalCard extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape('models/terminal_card.glb'), transform);
-	  this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
+	//   this.addComponent(new AudioSource(new AudioClip("audio/error_version1_stereo.mp3")));
   }
 }
 
@@ -34,7 +34,7 @@ export default class Terminal extends BaseEntity {
     super(new GLTFShape('models/terminal.glb'), transform);
     const screen = new BaseEntity(new GLTFShape('models/terminal_screen.glb'), new Transform({ position: new Vector3(0,0.95,0.2) }) )
     screen.setParent(this)
-
+	 this.addComponent(new AudioSource(new AudioClip("audio/error_version2.mp3")))
     this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 14) }));
 
     this._turnRightBtn = new TerminalButton({ position: new Vector3(-0.4, 1.5, 0.2) })
@@ -74,7 +74,7 @@ export default class Terminal extends BaseEntity {
 
       const Sound = new Entity();
       engine.addEntity(Sound);
-      Sound.addComponent(new AudioSource(new AudioClip("audio/insert_disc.mp3")))
+      Sound.addComponent(new AudioSource(new AudioClip("audio/insert_card.mp3")))
       Sound.getComponent(AudioSource).playOnce();
       
 

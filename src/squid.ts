@@ -27,6 +27,7 @@ export default class Squid extends PhysicsEntity {
 
   constructor(transform: Transform) {
     super(new GLTFShape('models/squid.glb'), transform);
+	//  this.addComponent(new AudioSource(new AudioClip("audio/generator_start.mp3")))
     this.addComponent(new OnPointerDown(()=> this._checkState(),
       {
         button: ActionButton.PRIMARY,
@@ -54,7 +55,7 @@ export default class Squid extends PhysicsEntity {
     })
     this.setBody(body)
 
-    const clip = new AudioClip("audio/Tractor.mp3")
+    const clip = new AudioClip("audio/tractor_move.mp3")
     const source = new AudioSource(clip)
     this.addComponent(source);
     source.loop = true
@@ -70,11 +71,18 @@ export default class Squid extends PhysicsEntity {
       this._battery.getComponent(Transform).scale = Vector3.One()
       this._battery.hideIcon()
       this._elements.push(this._battery)
-
-      this.addComponent(new AudioSource(new AudioClip("audio/quit_box.mp3")))
-      this.getComponent(AudioSource).playOnce()
+		const Start = new Entity()
+		engine.addEntity(Start)
+		Start.addComponent(new AudioSource(new AudioClip("audio/generator_start.mp3")))
+     
+		Start.getComponent(AudioSource).playOnce();
     } else {
       ui.displayAnnouncement('Not enough energy');
+		const Err = new Entity()
+		engine.addEntity(Err)
+		Err.addComponent(new AudioSource(new AudioClip("audio/error_version1_stereo.mp3")))
+		
+		Err.getComponent(AudioSource).playOnce();
     }
   }
 

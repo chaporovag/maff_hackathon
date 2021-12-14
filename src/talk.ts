@@ -2,19 +2,23 @@ import { Dialog } from '@dcl/npc-scene-utils'
 
 export let Talk: Dialog[] = [
   {
+	// audio:"audio/Click.mp3",
     text:
-	  `    Hello user! Now you will find out how deep the rabbit hole is! Until you get the blue pill, you cannot leave this location!`,
+	  `Welcome, adventurer! Now I show you how deep the rabbit-hole goes! To leave this place, you need to find the blue pill`,
    
-	offsetX:30
+	offsetX:30,
+	
   },
   {
     text: 
-	`     In order to get it, you need to activate a mobile platform in the form of a Squid and fit it under the pill. Then, with the help of boxes that you can carry, climb onto one of the Squid's legs and jump to get the pill.`,
-  
+	`At first, you need to look around to get control panel key and find energy block for mechanical creature`,
+	// audio:"audio/Click.mp3"
   },
   {
     text: 
-	 `     A squid needs a battery to move. You can control the Squid using the control panel, which requires a key. Good luck.`,
-    isEndOfDialog: true
+	 `Then use the key to activate control panel and move creature under the pill. Use boxes to jump higher!
+	                 Good luck!`,
+    isEndOfDialog: true,
+	//  audio:"audio/Click.mp3"
   }
 ]

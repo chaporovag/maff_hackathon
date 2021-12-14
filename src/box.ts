@@ -11,7 +11,7 @@ export class Box extends PhysicsEntity {
 
   constructor(shape: GLTFShape, transform: Transform) {
     super(shape, transform);
-	  this.addComponent(new AudioSource(new AudioClip("audio/quit_box.mp3")));
+	  this.addComponent(new AudioSource(new AudioClip("audio/drop_cube.mp3")));
   }
 
   protected setBody(body: CANNON.Body) {
@@ -30,7 +30,8 @@ export class Box extends PhysicsEntity {
     body.material = cannonMaterial
     body.linearDamping = 0.4
     body.angularDamping = 0.4
-    world.addBody(body)
+    world.addBody(body);
+	
   }
 
   public playerPickup(): void {
@@ -39,6 +40,10 @@ export class Box extends PhysicsEntity {
     this._body.position.set(Camera.instance.position.x, Camera.instance.position.y, Camera.instance.position.z)
     this.setParent(Attachable.FIRST_PERSON_CAMERA)
     this.getComponent(Transform).position.set(0, 0.75, 1.5);
+	 const cube = new Entity()
+	 engine.addEntity(cube)
+	 cube.addComponent(new AudioSource(new AudioClip("audio/take_box.mp3")))
+	 cube.getComponent(AudioSource).playOnce()
   }
 
   public playerDrop(dropDirection: Vector3): void {

@@ -8,7 +8,7 @@ export default class Battery extends BaseEntity {
 
   constructor(transform: Transform) {
     super(new GLTFShape('models/squid_battery.glb'), transform)
-	  this.addComponent(new AudioSource(new AudioClip("audio/Take_disk__battery.mp3")))
+	  this.addComponent(new AudioSource(new AudioClip("audio/take_card.mp3")))
     // Create trigger for key
     this.addComponent(
       new OnPointerDown(()=>{
