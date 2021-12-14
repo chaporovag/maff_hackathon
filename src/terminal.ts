@@ -14,7 +14,7 @@ class TerminalButton extends BaseEntity {
 class TerminalCard extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape('models/terminal_card.glb'), transform);
-	 this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
+	  this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
   }
 }
 
