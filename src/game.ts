@@ -4,7 +4,7 @@ import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
 import * as utils from '@dcl/ecs-scene-utils'
-
+import { NPC } from '@dcl/npc-scene-utils'
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
@@ -12,6 +12,15 @@ import Pill from "./pill";
 import global from "./core/global";
 import * as ui from "@dcl/ui-scene-utils";
 import { addWall } from "./wall";
+import { Talk } from "./talk";
+export let myNPC = new NPC({ position: new Vector3(10, 1, 10) }, 'models/box_big.glb', () => {
+	myNPC.talk(Talk, 0)
+ },{
+	onlyClickTrigger: true,
+	
+	// darkUI:true,
+	portrait: { path: 'images/morf7.png',offsetX:80,offsetY:-20 },
+ })
 
 const squid = new Squid(new Transform({ position: new Vector3(6,0.1,10), rotation: Quaternion.Euler(0, 270, 0)}));
 const terminal = new Terminal(new Transform({ position: new Vector3(4,0.08,3), rotation: Quaternion.Euler(0, 225, 0) }))
@@ -19,6 +28,7 @@ const pill = new Pill(new Transform({ position: new Vector3(12, 7.5, 6) }));
 terminal.init(squid)
 
 const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 8) });
+const floor1 = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 9.9, 8) ,rotation: Quaternion.Euler(180, 0, 0)});
 
 addWall(
   "videos/walls.mp4",
@@ -102,7 +112,7 @@ new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 11), rotation: Quat
 new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 14), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
 
 // Create balls
-const boxSmall = new BoxSmall(new Transform({ position: new Vector3(10, 0.5, 14) }))
+const boxSmall = new BoxSmall(new Transform({ position: new Vector3(11.5, 1.5, 14) }))
 const boxBig = new BoxBig(new Transform({ position: new Vector3(12, 0.5, 14) }))
 
 const boxes: Box[] = [boxSmall, boxBig]

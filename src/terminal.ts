@@ -35,7 +35,7 @@ export default class Terminal extends BaseEntity {
     const screen = new BaseEntity(new GLTFShape('models/terminal_screen.glb'), new Transform({ position: new Vector3(0,0.95,0.2) }) )
     screen.setParent(this)
 
-    this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 2) }));
+    this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 14) }));
 
     this._turnRightBtn = new TerminalButton({ position: new Vector3(-0.4, 1.5, 0.2) })
     this._moveFwdBtn = new TerminalButton({ position: new Vector3(-0.15, 1.5, 0.2) })
