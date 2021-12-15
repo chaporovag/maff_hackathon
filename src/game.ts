@@ -4,7 +4,7 @@ import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
 import * as utils from '@dcl/ecs-scene-utils'
-import { NPC } from '@dcl/npc-scene-utils'
+import { NPC, NPCState } from '@dcl/npc-scene-utils'
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
@@ -13,26 +13,22 @@ import global from "./core/global";
 import * as ui from "@dcl/ui-scene-utils";
 import { addWall } from "./wall";
 import { Talk } from "./talk";
+import { myNPC } from "./talk";
+
 const Start = new Entity()
 		engine.addEntity(Start)
-		Start.addComponent(new AudioSource(new AudioClip("audio/Ambient.mp3"))).playing = true;
+		const Ambient = Start.addComponent(new AudioSource(new AudioClip("audio/Ambient.mp3")))
+		Ambient.playing = true;
+		Ambient.loop = true;
 		Start.addComponent(new Transform({position: new Vector3(8,11,8)}))
      
 		
-export let myNPC = new NPC({ position: new Vector3(10, 1, 10) }, 'models/box_big.glb', () => {
-	myNPC.talk(Talk, 0);
-	const Click = new Entity()
-		engine.addEntity(Click)
-		Click.addComponent(new AudioSource(new AudioClip("audio/Click.mp3")))
-     
-		Click.getComponent(AudioSource).playOnce();
- },{
-	onlyClickTrigger: true,
-	
-	// darkUI:true,
-	portrait: { path: 'images/morf7.png',offsetX:80,offsetY:-20 },
- })
+		// clickableImage.height = '0px'
 
+
+// if( myNPC.dialog.isDialogOpen==false) {clickableImage.height = '0px'}
+
+//  if(myNPC.dialog.) {clickableImage.height = "0px"}
 const squid = new Squid(new Transform({ position: new Vector3(6,0.1,10), rotation: Quaternion.Euler(0, 270, 0)}));
 const terminal = new Terminal(new Transform({ position: new Vector3(4,0.08,3), rotation: Quaternion.Euler(0, 225, 0) }))
 const pill = new Pill(new Transform({ position: new Vector3(12, 7.5, 6) }));
