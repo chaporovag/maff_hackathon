@@ -9,7 +9,7 @@ export class Capsule {
 
 	constructor(transform: Transform, deltaPosition: number) {
 		const startPos = transform.position;
-		const endPos = new Vector3(startPos.x + deltaPosition, startPos.y, startPos.z);
+		const endPos = new Vector3(startPos.x , startPos.y, startPos.z+ deltaPosition);
 		const cocoon = new BaseEntity(new GLTFShape('models/cocoon.glb'), transform)
 		const cocoonBase = new BaseEntity(new GLTFShape('models/cocoon_base.glb'), transform)
 		cocoonBase.addComponent(new AudioSource(new AudioClip("audio/push_back_capsule.mp3")));

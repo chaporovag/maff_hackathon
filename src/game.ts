@@ -22,8 +22,8 @@ export let dialogWindow = new DialogWindow()
 
 const like = new Like(
   {
-    position: new Vector3(5, 0.75, -3),
-    rotation: Quaternion.Euler(0, 0, 0),
+    position: new Vector3(31, 0.75, 58),
+    rotation: Quaternion.Euler(0, 90, 0),
   },
   '61b6795f830169fee632b124'
 )
@@ -39,20 +39,22 @@ const Start = new Entity()
      
 		
 	
-export const squid = new Squid(new Transform({ position: new Vector3(6,0.1,10), rotation: Quaternion.Euler(0, 270, 0)}));
-const terminal = new Terminal(new Transform({ position: new Vector3(4,0.08,3), rotation: Quaternion.Euler(0, 225, 0) }))
+export const squid = new Squid(new Transform({ position: new Vector3(6,0.1,56), rotation: Quaternion.Euler(0, 60, 0)}));
+const terminal = new Terminal(new Transform({ position: new Vector3(4,0.08,61), rotation: Quaternion.Euler(0, 315, 0) }))
 
-export const pill = new Pill(new Transform({ position: new Vector3(12, 7.5, 6) }));
+export const pill = new Pill(new Transform({ position: new Vector3(18, 7.5, 56) }));
 // pill.getComponent(Transform).scale.setAll(0)
 terminal.init(squid)
 
-const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 8) });
-const floor1 = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 9.9, 8) ,rotation: Quaternion.Euler(180, 0, 0)});
+const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 56),rotation: Quaternion.Euler(0, 90, 0) });
+const roof = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 9.9, 56) ,rotation: Quaternion.Euler(180, 90, 0)});
+const floor1 = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(22.88, 0.1, 56),rotation: Quaternion.Euler(0, 90, 0),scale: new Vector3(1, 1, .885), });
+const roof1 = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(22.88, 9.9, 56) ,rotation: Quaternion.Euler(180, 90, 0),scale: new Vector3(1, 1, .885)});
 
 addWall(
   "videos/walls.mp4",
   new Transform({
-    position: new Vector3(15.9, 5, 8),
+    position: new Vector3(29.9, 5, 56),
     scale: new Vector3(15.8, 10, 1),
     rotation: Quaternion.Euler(0, 270, 0)
   })
@@ -60,7 +62,7 @@ addWall(
 addWall(
   "videos/walls.mp4",
   new Transform({
-    position: new Vector3(0.1, 5, 8),
+    position: new Vector3(0.1, 5, 56),
     scale: new Vector3(15.8, 10, 1),
     rotation: Quaternion.Euler(0, 90, 0)
   })
@@ -68,7 +70,7 @@ addWall(
 addWall(
   "videos/walls.mp4",
   new Transform({
-    position: new Vector3(8, 5, 15.9),
+    position: new Vector3(8, 5, 63.9),
     scale: new Vector3(15.8, 10, 1),
     rotation: Quaternion.Euler(0, 0, 0)
   })
@@ -76,7 +78,23 @@ addWall(
 addWall(
   "videos/walls.mp4",
   new Transform({
-    position: new Vector3(8, 5, 0.1),
+    position: new Vector3(8, 5, 48.1),
+    scale: new Vector3(15.8, 10, 1),
+    rotation: Quaternion.Euler(0, 180, 0)
+  })
+)
+addWall(
+  "videos/walls.mp4",
+  new Transform({
+    position: new Vector3(22, 5, 63.9),
+    scale: new Vector3(15.8, 10, 1),
+    rotation: Quaternion.Euler(0, 0, 0)
+  })
+)
+addWall(
+  "videos/walls.mp4",
+  new Transform({
+    position: new Vector3(22, 5, 48.1),
     scale: new Vector3(15.8, 10, 1),
     rotation: Quaternion.Euler(0, 180, 0)
   })
@@ -84,7 +102,7 @@ addWall(
 addWall(
   "",
   new Transform({
-    position: new Vector3(8, 10, 8),
+    position: new Vector3(8, 10, 56),
     scale: new Vector3(15.8, 15.8, 1),
     rotation: Quaternion.Euler(90, 0, 0)
   })
@@ -93,10 +111,10 @@ addWall(
 
 export let wallCollider: BaseEntity
 let oneSound = 1
-floor.addComponent(
+floor1.addComponent(
   new utils.TriggerComponent(
     new utils.TriggerBoxShape(
-      new Vector3(12, 12, 12),
+      new Vector3(12, 12, 60),
       new Vector3(0, 0, 0)
     ),
     {
@@ -106,12 +124,13 @@ floor.addComponent(
 			dialogWindow.openDialogWindow(Talk, 0);
 			Ambient.playing = true;
 		Ambient.loop = true;
-          wallCollider = new BaseEntity(new GLTFShape("models/wall_collider.glb"), { position: new Vector3(3.8, 0, 8.1) })
+          wallCollider = new BaseEntity(new GLTFShape("models/wall_collider.glb"), { position: new Vector3(3.8, 0, 56.1) })
           pill.init(wallCollider)
           ui.displayAnnouncement('Take the pill to escape the room', 6, Color4.Green());
         }
 
         floor.removeComponent(utils.ToggleComponent)
+      //   floor1.removeComponent(utils.ToggleComponent)
         if (oneSound) {
           floor.getComponent(AudioSource).playOnce();
           oneSound = 0
@@ -121,21 +140,43 @@ floor.addComponent(
   )
 )
 
-new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 2), rotation: Quaternion.Euler(0, -90, 0) }), -1.5);
-new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 5), rotation: Quaternion.Euler(0, -90, 0) }), -1.5);
-new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 8), rotation: Quaternion.Euler(0, -90, 0) }), -1.5);
-new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 11), rotation: Quaternion.Euler(0, -90, 0) }), -1.5).init();
-new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 14), rotation: Quaternion.Euler(0, -90, 0) }), -1.5);
+// new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 2), rotation: Quaternion.Euler(0, -90, 0) }), -1.5);
+// new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 5), rotation: Quaternion.Euler(0, -90, 0) }), -1.5);
+// new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 8), rotation: Quaternion.Euler(0, -90, 0) }), -1.5);
+// new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 11), rotation: Quaternion.Euler(0, -90, 0) }), -1.5)
+// new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 14), rotation: Quaternion.Euler(0, -90, 0) }), -1.5);
+
+new Capsule( new Transform({ position: new Vector3(12.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+new Capsule( new Transform({ position: new Vector3(18.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+new Capsule( new Transform({ position: new Vector3(21.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+new Capsule( new Transform({ position: new Vector3(24.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+new Capsule( new Transform({ position: new Vector3(9.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+new Capsule( new Transform({ position: new Vector3(6.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+// new Capsule( new Transform({ position: new Vector3(3.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+new Capsule( new Transform({ position: new Vector3(27.6, 0.1, 48.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+
+new Capsule( new Transform({ position: new Vector3(12.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(15.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(18.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(21.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(24.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(9.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(6.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+// new Capsule( new Transform({ position: new Vector3(3.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+new Capsule( new Transform({ position: new Vector3(27.6, 0.1, 63.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5).init();
+
+// new Capsule( new Transform({ position: new Vector3(1.6, 0.1, 60.5), rotation: Quaternion.Euler(0, 90, 0) }), -1.5);
 
 
-new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 5), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
-new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 8), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
-new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 11), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
-new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 14), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
+// new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 5), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
+// new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 8), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
+// new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 11), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
+// new Capsule( new Transform({ position: new Vector3(0.6, 0.1, 14), rotation: Quaternion.Euler(0, 90, 0) }), 1.5);
 
 // Create balls
-const boxSmall = new BoxSmall(new Transform({ position: new Vector3(11.5, 1.5, 14) }))
-const boxBig = new BoxBig(new Transform({ position: new Vector3(12, 0.5, 14) }))
+const boxSmall = new BoxSmall(new Transform({ position: new Vector3(2.5, 1.5, 51) }))
+const boxBig = new BoxBig(new Transform({ position: new Vector3(3, 0.5, 51) }))
 
 const boxes: Box[] = [boxSmall, boxBig]
 const physicsSystem = new PhysicsSystem()
