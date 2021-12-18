@@ -3,8 +3,9 @@ import Global from "./core/global";
 import * as ui from "@dcl/ui-scene-utils";
 import Squid, {Move, Rotate} from "./squid";
 import Key from "./key";
-
+// import{a} from './talk'
 class TerminalButton extends BaseEntity {
+	
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape('models/terminal_btn.glb'), transform);
 	//   this.addComponent(new AudioSource(new AudioClip("audio/Error_terminal_tractor.mp3")));
@@ -23,7 +24,7 @@ export default class Terminal extends BaseEntity {
   private readonly _moveBackBtn: TerminalButton
   private readonly _turnLeftBtn: TerminalButton
   private readonly _turnRightBtn: TerminalButton
-
+ 
   private _isActive: boolean = false
   // @ts-ignore
   private _squid: Squid
@@ -35,8 +36,14 @@ export default class Terminal extends BaseEntity {
     const screen = new BaseEntity(new GLTFShape('models/terminal_screen.glb'), new Transform({ position: new Vector3(0,0.95,0.2) }) )
     screen.setParent(this)
 	 this.addComponent(new AudioSource(new AudioClip("audio/error_version2.mp3")))
-    this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 14) }));
-
+	 
+   //  this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 14) }));
+// if(!Global.QUEST) {
+// 	engine.removeEntity(this._key)
+// if(Global.QUEST) {
+// 	this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 14) }));
+// 	this.removeComponent
+// }
     this._turnRightBtn = new TerminalButton({ position: new Vector3(-0.4, 1.5, 0.2) })
     this._moveFwdBtn = new TerminalButton({ position: new Vector3(-0.15, 1.5, 0.2) })
     this._moveBackBtn = new TerminalButton({ position: new Vector3(0.15, 1.5, 0.2) })
@@ -50,7 +57,7 @@ export default class Terminal extends BaseEntity {
     this._turnLeftBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 90)
     this._moveFwdBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 180)
     this._turnRightBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), -90)
-
+	 this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 14) }));
     this.addComponent(
       new OnClick(() => {
         this._checkState();
@@ -62,13 +69,18 @@ export default class Terminal extends BaseEntity {
       })
     )
   }
-
+//   update(dt: number) {
+// 	if(!Global.QUEST) {
+// 		engine.removeEntity(this._key)
+// 		this.removeComponent(this._key)
+// 	} else this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 14) }));
+// }
   public init(squid: Squid):void {
     this._squid = squid
   }
-
+//   ||!Global.QUEST
   private _checkState(): void {
-    if (Global.HAS_KEY && !this._isActive) {
+    if ((Global.HAS_KEY && !this._isActive)) {
       this._activeButtons();
       this._key.hideIcon()
 

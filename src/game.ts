@@ -1,37 +1,49 @@
+import * as ui from "@dcl/ui-scene-utils";
 import Squid from "./squid";
 import BaseEntity from "./base/baseEntity";
 import {Capsule} from "./capsule";
 import {Box} from "./box";
 import PhysicsSystem from "./systems/physicsSystem";
 import * as utils from '@dcl/ecs-scene-utils'
-import { NPC, NPCState } from '@dcl/npc-scene-utils'
+import { DialogWindow, NPC, NPCState } from '@dcl/npc-scene-utils'
 import Terminal from "./terminal";
 import {BoxSmall} from "./boxSmall";
 import {BoxBig} from "./boxBig";
 import Pill from "./pill";
 import global from "./core/global";
-import * as ui from "@dcl/ui-scene-utils";
+import { Dialog } from '@dcl/npc-scene-utils'
 import { addWall } from "./wall";
 import { Talk } from "./talk";
-import { myNPC } from "./talk";
+import {Tal} from './dialog'
+import { monk } from "./components/NPC/monk";
+import { Like } from "./Like/Like";
+import Key from "./key";
+export let dialogWindow = new DialogWindow()
+
+const like = new Like(
+  {
+    position: new Vector3(5, 0.75, -3),
+    rotation: Quaternion.Euler(0, 0, 0),
+  },
+  '61b6795f830169fee632b124'
+)
+
 
 const Start = new Entity()
 		engine.addEntity(Start)
 		const Ambient = Start.addComponent(new AudioSource(new AudioClip("audio/Ambient.mp3")))
-		Ambient.playing = true;
-		Ambient.loop = true;
+		// Ambient.playing = true;
+		// Ambient.loop = true;
+		
 		Start.addComponent(new Transform({position: new Vector3(8,11,8)}))
      
 		
-		// clickableImage.height = '0px'
-
-
-// if( myNPC.dialog.isDialogOpen==false) {clickableImage.height = '0px'}
-
-//  if(myNPC.dialog.) {clickableImage.height = "0px"}
-const squid = new Squid(new Transform({ position: new Vector3(6,0.1,10), rotation: Quaternion.Euler(0, 270, 0)}));
+	
+export const squid = new Squid(new Transform({ position: new Vector3(6,0.1,10), rotation: Quaternion.Euler(0, 270, 0)}));
 const terminal = new Terminal(new Transform({ position: new Vector3(4,0.08,3), rotation: Quaternion.Euler(0, 225, 0) }))
-const pill = new Pill(new Transform({ position: new Vector3(12, 7.5, 6) }));
+
+export const pill = new Pill(new Transform({ position: new Vector3(12, 7.5, 6) }));
+// pill.getComponent(Transform).scale.setAll(0)
 terminal.init(squid)
 
 const floor = new BaseEntity(new GLTFShape("models/floor.glb"), { position: new Vector3(8, 0.1, 8) });
@@ -79,7 +91,7 @@ addWall(
 )
 
 
-let wallCollider: BaseEntity
+export let wallCollider: BaseEntity
 let oneSound = 1
 floor.addComponent(
   new utils.TriggerComponent(
@@ -91,6 +103,9 @@ floor.addComponent(
       onCameraEnter: () => {
         if (global.HAS_PILL) return
         if (!wallCollider) {
+			dialogWindow.openDialogWindow(Talk, 0);
+			Ambient.playing = true;
+		Ambient.loop = true;
           wallCollider = new BaseEntity(new GLTFShape("models/wall_collider.glb"), { position: new Vector3(3.8, 0, 8.1) })
           pill.init(wallCollider)
           ui.displayAnnouncement('Take the pill to escape the room', 6, Color4.Green());

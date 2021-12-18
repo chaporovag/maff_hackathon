@@ -2,6 +2,7 @@ import BaseEntity from "./base/baseEntity"
 import * as utils from "@dcl/ecs-scene-utils"
 import UpdateEvent, {EventMessage} from "./events/updateEvent";
 import global from "./core/global";
+import Global from "./core/global";
 
 export class Capsule {
 	private _withBattery = false
@@ -16,7 +17,7 @@ export class Capsule {
 		cocoonBase.addComponent(
 			new OnClick((): void => {
 				const toggleComponent = cocoonBase.getComponent(utils.ToggleComponent)
-				if (!this._withBattery || (this._withBattery && !global.HAS_BATTERY && !toggleComponent.isOn()) || (this._withBattery && global.HAS_BATTERY)) {
+				if (!this._withBattery || (this._withBattery && !global.HAS_BATTERY && !toggleComponent.isOn()) || (this._withBattery && global.HAS_BATTERY)||!Global.QUEST) {
 					toggleComponent.toggle()
 				}},
 				{

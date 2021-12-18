@@ -11,7 +11,8 @@
         "node_modules\\@dcl\\ui-scene-utils\\dist\\index.d.ts"
       ],
       "@dcl/npc-scene-utils": [
-        "node_modules\\@dcl\\npc-scene-utils\\dist\\index.d.ts"
+        "node_modules\\@dcl\\npc-scene-utils\\dist\\index.d.ts",
+        "..\\..\\..\\..\\..\\..\\AppData\\Roaming\\npm\\node_modules\\@dcl\\npc-scene-utils\\dist\\index.d.ts"
       ]
     },
     "baseUrl": "."

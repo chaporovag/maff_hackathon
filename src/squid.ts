@@ -6,6 +6,7 @@ import UpdateEvent, {EventMessage} from "./events/updateEvent";
 import global from "./core/global";
 import Battery from "./battery";
 import PhysicsEntity from "./base/physicsEntity";
+import { Talk } from "./talk";
 export enum Move {
   FORWARD = 'FORWARD',
   BACK = 'BACK',
@@ -22,8 +23,8 @@ export default class Squid extends PhysicsEntity {
   private readonly _elements: BaseEntity[]
 
   // @ts-ignore
-  private _battery: Battery
-  private _isActive: boolean = false
+   _battery: Battery
+//   private _isActive: boolean = false
 
   constructor(transform: Transform) {
     super(new GLTFShape('models/squid.glb'), transform);
@@ -39,7 +40,7 @@ export default class Squid extends PhysicsEntity {
     this._actionSystem = new ActionSystem(this._elements)
     engine.addSystem(this._actionSystem)
     global.events.addListener(UpdateEvent, null, ({ message }) => {
-      if (message === EventMessage.CAPSULE_OPEN && !this._battery) {
+      if (message === EventMessage.CAPSULE_OPEN && !this._battery&&Global.QUEST) {
         this._battery = new Battery(new Transform({ position: new Vector3(15, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) }))
       }
     })
@@ -62,8 +63,8 @@ export default class Squid extends PhysicsEntity {
   }
 
   private _checkState(): void {
-    if (Global.HAS_BATTERY && !this._isActive) {
-      this._isActive = true
+    if (Global.HAS_BATTERY && !Global._isActive) {
+      Global._isActive = true
       this.removeComponent(OnPointerDown)
       this._battery.removeComponent(OnPointerDown)
       this._battery.getComponent(Transform).position = this.getComponent(Transform).position
@@ -87,7 +88,7 @@ export default class Squid extends PhysicsEntity {
   }
 
   public move (dir?: Move):void {
-    if (!this._isActive) return
+    if (!Global._isActive) return
     switch (dir) {
       case Move.FORWARD:
         this.getComponent(AudioSource).playing = true;
@@ -104,7 +105,7 @@ export default class Squid extends PhysicsEntity {
   }
 
   public rotate (dir?: Rotate):void {
-    if (!this._isActive) return
+    if (!Global._isActive) return
     switch (dir) {
       case Rotate.RIGHT:
         this.getComponent(AudioSource).playing = true;
