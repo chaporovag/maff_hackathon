@@ -1,19 +1,9 @@
 import { Dialog } from '@dcl/npc-scene-utils'
-import { NPC, NPCState } from '@dcl/npc-scene-utils'
 import { dialogWindow } from './game'
-import Pill from "./pill";
 import { pill } from './game';
 import { wallCollider } from './game';
-import global from "./core/global";
 import Global from './core/global';
-import Squid from './squid';
-import UpdateEvent, { EventMessage } from "./events/updateEvent";
-import { message } from 'node_modules/@dcl/ui-scene-utils/dist/utils/default-ui-components';
-import Terminal from './terminal';
-import Key from './key';
 import { squid } from './game';
-import BaseEntity from './base/baseEntity';
-// import Squid from './squid';
 
 const morf = new UICanvas()
 
@@ -189,9 +179,7 @@ export let Talk: Dialog[] = [
 			section: {
 				sourceHeight: 173,
 				sourceWidth: 200,
-
 			},
 		},
 	}
-
 ]

@@ -13,13 +13,6 @@ export function addWall(src: string, transform: Transform): void {
   screen.addComponent(p)
   screen.addComponent(transform)
   screen.addComponent(myMaterial)
-  screen.addComponent(
-    new OnPointerDown(() => {
-      myVideoTexture.playing = !myVideoTexture.playing
-    })
-  )
-  if (screen.hasComponent(OnPointerDown))
-    screen.removeComponent(OnPointerDown)
   engine.addEntity(screen)
   myVideoTexture.loop = true
   myVideoTexture.play()

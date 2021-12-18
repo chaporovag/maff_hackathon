@@ -53,4 +53,8 @@ export default class PhysicsSystem implements ISystem {
     entity.init(this._entityMaterial, this._world)
     this._entities.push(entity)
   }
+
+  public addBody(body: CANNON.Body):void {
+    this._world.addBody(body)
+  }
 }

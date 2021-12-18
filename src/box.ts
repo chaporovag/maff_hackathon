@@ -58,10 +58,34 @@ export class Box extends PhysicsEntity {
     this._body.wakeUp()
     this._body.velocity.setZero()
     this._body.angularVelocity.setZero()
-    this._body.position.set(
+
+    const newPosition = new Vector3(
       Camera.instance.feetPosition.x + dropDirection.x * 1.4,
       Camera.instance.position.y + 0.6,
       Camera.instance.feetPosition.z + dropDirection.z * 1.4
+    )
+
+    if (newPosition.x >= 15) {
+      newPosition.x = 13
+      newPosition.y = 3
+    }
+    if (newPosition.x <= 1) {
+      newPosition.x = 3
+      newPosition.y = 3
+    }
+    if (newPosition.z >= 15) {
+      newPosition.z = 13
+      newPosition.y = 3
+    }
+    if (newPosition.z <= 1) {
+      newPosition.z = 3
+      newPosition.y = 3
+    }
+
+    this._body.position.set(
+      newPosition.x,
+      newPosition.y,
+      newPosition.z,
     )
   }
 }
