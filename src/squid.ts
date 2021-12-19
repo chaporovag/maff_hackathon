@@ -41,10 +41,10 @@ export default class Squid extends PhysicsEntity {
     engine.addSystem(this._actionSystem)
     global.events.addListener(UpdateEvent, null, ({ message }) => {
       if (message === EventMessage.CAPSULE_OPEN && !this._battery&&Global.QUEST) {
-        this._battery = new Battery(new Transform({ position: new Vector3(15, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) }))
+        this._battery = new Battery(new Transform({ position: new Vector3(27.6, -0.8, 62.8), rotation: new Quaternion(-0.135, 0, 0) }))
       }
     })
-
+// "0,0","1,0","0,1","1,1","1,2","0,2","2,0","2,1","2,2","2,3","3,2","0,3","3,0","3,1","1,3","3,3","4,0","5,0","6,0","0,4","0,5"
     // this._battery = new Battery(new Transform({ position: new Vector3(10, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) }))
 
     // Create physics body

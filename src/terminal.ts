@@ -57,7 +57,7 @@ export default class Terminal extends BaseEntity {
     this._turnLeftBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 90)
     this._moveFwdBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 180)
     this._turnRightBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), -90)
-	 this._key = new Key(new Transform({ position: new Vector3(11, 6.5, 14) }));
+	 this._key = new Key(new Transform({ position: new Vector3(1, 6.5, 51) }));
     this.addComponent(
       new OnClick(() => {
         this._checkState();
