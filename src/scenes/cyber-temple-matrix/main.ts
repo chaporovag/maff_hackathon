@@ -15,14 +15,24 @@ import resources from "./resources";
 import {Floor} from "./entities/floor";
 import NPC from "./entities/npc";
 import { EventMessage, QuestStateChangedEvent } from "./events/customEvents";
+import {Twitter} from "./services/Twitter/Twitter";
 
 export function createCyberTempleMatrix(): void {
   const like = new Like(
     {
-      position: new Vector3(global.POSITION.x + 31, 0.75, global.POSITION.z + 10),
+      position: new Vector3(global.POSITION.x + 31, 0.8, global.POSITION.z + 12),
       rotation: Quaternion.Euler(0, 90, 0),
     },
     '61b905d2dd08def8380abab9'
+  )
+
+  const twitter = new Twitter(
+    {
+      position: new Vector3(global.POSITION.x + 31, 0.75, global.POSITION.z + 14),
+      rotation: Quaternion.Euler(0, 90, 0),
+      scale: Vector3.One().scale(2)
+    },
+    "https://twitter.com/inceptionfun"
   )
 
   const ambient = new Entity()
@@ -113,6 +123,7 @@ export function createCyberTempleMatrix(): void {
           if (global.HAS_KEY && !global.TERMINAL_IS_ACTIVE) terminal.setKeyIconVisible(true)
           if (global.HAS_BATTERY && !global.ROBOT_IS_ACTIVE) robot.setBatteryIconVisible(true)
           npc.setMorfVisible(true)
+          ambientSnd.playing = true
         },
         onCameraExit: () => {
           npc.hide()
@@ -173,6 +184,7 @@ export function createCyberTempleMatrix(): void {
     }
   })
   global.events.fireEvent(new QuestStateChangedEvent(EventMessage.QUEST_END))
+  ambientSnd.playing = false
 
   new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
   new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);

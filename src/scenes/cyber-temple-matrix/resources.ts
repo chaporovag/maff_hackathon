@@ -1,9 +1,13 @@
 export default {
 
   MODEL_HEART: 'models/cyber-temple-matrix/heart.glb',
+
   MODEL_MONK: 'models/cyber-temple-matrix/monk.glb',
   SOUND_MONK: 'sounds/cyber-temple-matrix/sounds_monk.mp3',
   IMAGE_MONK: 'images/monk.png',
+
+  MODEL_TWITTER: 'models/cyber-temple-matrix/twitter.glb',
+  SOUND_TWITTER: 'sounds/cyber-temple-matrix/click_twitter.mp3',
 
   MODEL_BOX_BIG: 'models/cyber-temple-matrix/box_big.glb',
   MODEL_BOX_SMALL: 'models/cyber-temple-matrix/box_small.glb',
