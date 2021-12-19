@@ -48,10 +48,10 @@ export default class NPC {
     const ruDescImage = new UIImage(canvas, new Texture(resources.IMAGE_RU_DESC))
     ruDescImage.width = "0px"
     ruDescImage.name = "clickable-image"
-    ruDescImage.width = "890px"
-    ruDescImage.height = "447px"
-    ruDescImage.sourceWidth = 890
-    ruDescImage.sourceHeight = 447
+    ruDescImage.width = "749px"
+    ruDescImage.height = "401px"
+    ruDescImage.sourceWidth = 749
+    ruDescImage.sourceHeight = 401
     ruDescImage.isPointerBlocker = true
     ruDescImage.visible = false
     ruDescImage.onClick = new OnClick(() => {
