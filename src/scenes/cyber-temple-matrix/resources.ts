@@ -18,7 +18,6 @@ export default {
   MODEL_TERMINAL_BTN: 'models/cyber-temple-matrix/terminal_btn.glb',
   MODEL_TERMINAL_CARD: 'models/cyber-temple-matrix/terminal_card.glb',
   MODEL_TERMINAL_SCREEN: 'models/cyber-temple-matrix/terminal_screen.glb',
-  MODEL_WALLS_COLLIDER: 'models/cyber-temple-matrix/walls_collider.glb',
 
   SOUND_AMBIENT: 'sounds/cyber-temple-matrix/ambient.mp3',
   SOUND_CLICK: 'sounds/cyber-temple-matrix/click.mp3',

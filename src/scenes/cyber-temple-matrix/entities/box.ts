@@ -1,5 +1,6 @@
 import PhysicsEntity from "../base/physicsEntity";
 import resources from "../resources";
+import global from "../core/global";
 
 export class Box extends PhysicsEntity {
 
@@ -32,7 +33,6 @@ export class Box extends PhysicsEntity {
     body.linearDamping = 0.4
     body.angularDamping = 0.4
     world.addBody(body);
-	
   }
 
   public playerPickup(): void {
@@ -66,20 +66,20 @@ export class Box extends PhysicsEntity {
       Camera.instance.feetPosition.z + dropDirection.z * 1.4
     )
 
-    if (newPosition.x >= 15) {
-      newPosition.x = 13
+    if (newPosition.x >= global.POSITION.x + 29) {
+      newPosition.x = global.POSITION.x + 27
       newPosition.y = 3
     }
-    if (newPosition.x <= 1) {
-      newPosition.x = 3
+    if (newPosition.x <= global.POSITION.x + 1) {
+      newPosition.x = global.POSITION.x + 3
       newPosition.y = 3
     }
-    if (newPosition.z >= 15) {
-      newPosition.z = 13
+    if (newPosition.z >= global.POSITION.z + 15) {
+      newPosition.z = global.POSITION.z + 13
       newPosition.y = 3
     }
-    if (newPosition.z <= 1) {
-      newPosition.z = 3
+    if (newPosition.z <= global.POSITION.z + 1) {
+      newPosition.z = global.POSITION.z + 3
       newPosition.y = 3
     }
 

@@ -23,6 +23,10 @@ export default class Battery extends BaseEntity {
   }
 
   public hideIcon(): void {
-    this._icon.hide()
+    if (this._icon) this._icon.hide()
+  }
+
+  public showIcon(): void {
+    if (this._icon) this._icon.show()
   }
 }

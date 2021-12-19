@@ -4,11 +4,9 @@ import * as ui from "@dcl/ui-scene-utils";
 import Global from "../core/global";
 import global from "../core/global";
 import resources from "../resources";
+import {EventMessage, QuestStateChangedEvent} from "../events/CustomEvents";
 
 export default class Pill extends BaseEntity {
-
-  // @ts-ignore
-  private _wallCollider: BaseEntity
 
   constructor(transform: Transform) {
     super(new GLTFShape(resources.MODEL_PILL_RED), transform)
@@ -31,17 +29,13 @@ export default class Pill extends BaseEntity {
             this.getComponent(AudioSource).playOnce()
             this.getComponent(Transform).scale.setAll(0)
 
-            if (this._wallCollider) {
+            if (Global.IS_QUEST) {
               ui.displayAnnouncement('Wake up, Neo', 6, Color4.Green());
-              this._wallCollider.getComponent(Transform).scale.setAll(0)
+              global.events.fireEvent(new QuestStateChangedEvent(EventMessage.QUEST_END))
             }
           }
         }
       )
     )
-  }
-
-  public init(wallCollider: BaseEntity) {
-    this._wallCollider = wallCollider
   }
 }

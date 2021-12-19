@@ -2,12 +2,12 @@ import ActionSystem from "../systems/actionSystem";
 import BaseEntity from "../base/baseEntity";
 import Global from "../core/global";
 import * as ui from "@dcl/ui-scene-utils";
-import UpdateEvent, {EventMessage} from "../events/updateEvent";
 import global from "../core/global";
 import Battery from "./battery";
 import PhysicsEntity from "../base/physicsEntity";
-import { Talk } from "./talk";
 import resources from "../resources";
+import {EventMessage, CustomEvents} from "../events/CustomEvents";
+
 export enum Move {
   FORWARD = 'FORWARD',
   BACK = 'BACK',
@@ -25,11 +25,9 @@ export default class Robot extends PhysicsEntity {
 
   // @ts-ignore
    _battery: Battery
-//   private _isActive: boolean = false
 
   constructor(transform: Transform) {
     super(new GLTFShape(resources.MODEL_ROBOT), transform);
-	//  this.addComponent(new AudioSource(new AudioClip("sounds/generator_start.mp3")))
     this.addComponent(new OnPointerDown(()=> this._checkState(),
       {
         button: ActionButton.PRIMARY,
@@ -40,9 +38,9 @@ export default class Robot extends PhysicsEntity {
     this._elements = [this]
     this._actionSystem = new ActionSystem(this._elements)
     engine.addSystem(this._actionSystem)
-    global.events.addListener(UpdateEvent, null, ({ message }) => {
-      if (message === EventMessage.CAPSULE_OPEN && !this._battery&&Global.QUEST) {
-        this._battery = new Battery(new Transform({ position: new Vector3(27.6, -0.8, 62.8), rotation: new Quaternion(-0.135, 0, 0) }))
+    global.events.addListener(CustomEvents, null, ({ message }) => {
+      if (message === EventMessage.CAPSULE_OPEN && !this._battery && Global.IS_QUEST) {
+        this._battery = new Battery(new Transform({ position: new Vector3(global.POSITION.x + 27.6, -0.8, global.POSITION.z + 14.8), rotation: new Quaternion(-0.135, 0, 0) }))
       }
     })
 
@@ -64,32 +62,52 @@ export default class Robot extends PhysicsEntity {
   }
 
   private _checkState(): void {
-    if (Global.HAS_BATTERY && !Global._isActive) {
-      Global._isActive = true
+    if (Global.HAS_BATTERY && !Global.ROBOT_IS_ACTIVE) {
+      Global.ROBOT_IS_ACTIVE = true
       this.removeComponent(OnPointerDown)
-      this._battery.removeComponent(OnPointerDown)
-      this._battery.getComponent(Transform).position = this.getComponent(Transform).position
-      this._battery.getComponent(Transform).rotation = this.getComponent(Transform).rotation
-      this._battery.getComponent(Transform).scale = Vector3.One()
-      this._battery.hideIcon()
-      this._elements.push(this._battery)
-		const Start = new Entity()
-		engine.addEntity(Start)
-		Start.addComponent(new AudioSource(new AudioClip(resources.SOUND_GENERATOR_START)))
-     
-		Start.getComponent(AudioSource).playOnce();
+      if (this._battery) {
+        this._battery.removeComponent(OnPointerDown)
+        this._battery.getComponent(Transform).position = this.getComponent(Transform).position
+        this._battery.getComponent(Transform).rotation = this.getComponent(Transform).rotation
+        this._battery.getComponent(Transform).scale = Vector3.One()
+        this._battery.hideIcon()
+        this._elements.push(this._battery)
+      }
+      const Start = new Entity()
+      engine.addEntity(Start)
+      Start.addComponent(new AudioSource(new AudioClip(resources.SOUND_GENERATOR_START)))
+
+      Start.getComponent(AudioSource).playOnce();
     } else {
       ui.displayAnnouncement('Find the battery');
-		const Err = new Entity()
-		engine.addEntity(Err)
-		Err.addComponent(new AudioSource(new AudioClip(resources.SOUND_ERROR_ROBOT)))
-		
-		Err.getComponent(AudioSource).playOnce();
+      const Err = new Entity()
+      engine.addEntity(Err)
+      Err.addComponent(new AudioSource(new AudioClip(resources.SOUND_ERROR_ROBOT)))
+
+      Err.getComponent(AudioSource).playOnce();
+    }
+  }
+
+  public setBatteryIconVisible(value: boolean) {
+    if (!this._battery) return
+    if (value) {
+      this._battery.showIcon()
+    } else {
+      this._battery.hideIcon()
+    }
+  }
+
+  public setBatteryVisible(value: boolean) {
+    if (!this._battery) return
+    if (value) {
+      this._battery.getComponent(Transform).scale.setAll(1)
+    } else {
+      this._battery.getComponent(Transform).scale.setAll(0)
     }
   }
 
   public move (dir?: Move):void {
-    if (!Global._isActive) return
+    if (!Global.ROBOT_IS_ACTIVE) return
     switch (dir) {
       case Move.FORWARD:
         this.getComponent(AudioSource).playing = true;
@@ -106,7 +124,7 @@ export default class Robot extends PhysicsEntity {
   }
 
   public rotate (dir?: Rotate):void {
-    if (!Global._isActive) return
+    if (!Global.ROBOT_IS_ACTIVE) return
     switch (dir) {
       case Rotate.RIGHT:
         this.getComponent(AudioSource).playing = true;

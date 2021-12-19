@@ -1,9 +1,9 @@
 import BaseEntity from "../base/baseEntity"
 import * as utils from "@dcl/ecs-scene-utils"
-import UpdateEvent, {EventMessage} from "../events/updateEvent";
 import global from "../core/global";
 import Global from "../core/global";
 import resources from "../resources";
+import {EventMessage, CustomEvents} from "../events/CustomEvents";
 
 export class Capsule {
 	private _withBattery = false
@@ -11,14 +11,14 @@ export class Capsule {
 	constructor(transform: Transform, deltaPosition: number) {
 		const startPos = transform.position;
 		const endPos = new Vector3(startPos.x , startPos.y, startPos.z+ deltaPosition);
-		const cocoon = new BaseEntity(new GLTFShape(resources.MODEL_CAPSULE), transform)
-		const cocoonBase = new BaseEntity(new GLTFShape(resources.MODEL_CAPSULE_BASE), transform)
-		cocoonBase.addComponent(new AudioSource(new AudioClip(resources.SOUND_PUSH_CAPSULE)));
+		const capsule = new BaseEntity(new GLTFShape(resources.MODEL_CAPSULE), transform)
+		const capsuleBase = new BaseEntity(new GLTFShape(resources.MODEL_CAPSULE_BASE), transform)
+		capsuleBase.addComponent(new AudioSource(new AudioClip(resources.SOUND_PUSH_CAPSULE)));
 
-		cocoonBase.addComponent(
+		capsuleBase.addComponent(
 			new OnClick((): void => {
-				const toggleComponent = cocoonBase.getComponent(utils.ToggleComponent)
-				if (!this._withBattery || (this._withBattery && !global.HAS_BATTERY && !toggleComponent.isOn()) || (this._withBattery && global.HAS_BATTERY)||!Global.QUEST) {
+				const toggleComponent = capsuleBase.getComponent(utils.ToggleComponent)
+				if (!this._withBattery || (this._withBattery && !global.HAS_BATTERY && !toggleComponent.isOn()) || (this._withBattery && global.HAS_BATTERY) || !Global.IS_QUEST) {
 					toggleComponent.toggle()
 				}},
 				{
@@ -27,32 +27,32 @@ export class Capsule {
 			)
 		)
 
-		cocoonBase.addComponent(
+		capsuleBase.addComponent(
 			new utils.ToggleComponent(utils.ToggleState.Off, (value): void => {
 				if (value === utils.ToggleState.On) {
-					cocoonBase.getComponent(AudioSource).playOnce()
+					capsuleBase.getComponent(AudioSource).playOnce()
 
-					cocoonBase.addComponentOrReplace(
+					capsuleBase.addComponentOrReplace(
 						new utils.MoveTransformComponent(
-							cocoonBase.getComponent(Transform).position,
+							capsuleBase.getComponent(Transform).position,
 							endPos,
 							0.8,
 							() => {
 								if (this._withBattery) {
-									global.events.fireEvent(new UpdateEvent(EventMessage.CAPSULE_OPEN))
+									global.events.fireEvent(new CustomEvents(EventMessage.CAPSULE_OPEN))
 								}
 							}
 						)
 					)
 				} else {
-					cocoonBase.addComponentOrReplace(
+					capsuleBase.addComponentOrReplace(
 						new utils.MoveTransformComponent(
-							cocoonBase.getComponent(Transform).position,
+							capsuleBase.getComponent(Transform).position,
 							startPos,
 							0.8
 						)
 					)
-					cocoonBase.getComponent(AudioSource).playOnce()
+					capsuleBase.getComponent(AudioSource).playOnce()
 				}
 			})
 		);
