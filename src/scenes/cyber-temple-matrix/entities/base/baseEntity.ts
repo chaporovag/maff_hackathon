@@ -7,8 +7,4 @@ export default class BaseEntity extends Entity {
     this.addComponent(shape)
     this.addComponent(new Transform(transform))
   }
-
-  public removeAll() {
-    this.getComponent(Transform).scale.setAll(0);
-  }
 }

@@ -1,4 +1,4 @@
-import BaseEntity from "../base/baseEntity";
+import BaseEntity from "../entities/base/baseEntity";
 import Robot from "../entities/robot";
 import global from "../core/global";
 
@@ -28,7 +28,7 @@ export default class ActionSystem implements ISystem {
           const sign = direction < 0 ? -1 : 1
           const delta = distance.scale(sign * 0.05)
           const newPos = Vector3.Zero().copyFrom(transform.position).add(delta)
-          if (!(newPos.x > global.POSITION.x + 24.5 || newPos.x < global.POSITION.x + 5.25 || newPos.z > global.POSITION.z + 10.5 || newPos.z < global.POSITION.z + 5.5)) {
+          if (!(newPos.x > global.POSITION.x + 24.5 || newPos.x < global.POSITION.x + 5.5 || newPos.z > global.POSITION.z + 10.5 || newPos.z < global.POSITION.z + 5.5)) {
             transform.translate(delta)
           }
         })

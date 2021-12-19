@@ -1,4 +1,4 @@
-import BaseEntity from "../base/baseEntity";
+import BaseEntity from "./base/baseEntity";
 import Global from "../core/global";
 import * as ui from "@dcl/ui-scene-utils";
 import Robot, {Move, Rotate} from "./robot";
@@ -49,7 +49,7 @@ export default class Terminal extends BaseEntity {
     this._turnLeftBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 90)
     this._moveFwdBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 180)
     this._turnRightBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), -90)
-	  this._key = new Key(new Transform({ position: new Vector3(global.POSITION.x + 1, 5, global.POSITION.z + 14) }));
+	  this._key = new Key(new Transform({ position: new Vector3(global.POSITION.x + 1, 6, global.POSITION.z + 12) }));
     this.addComponent(
       new OnClick(() => {
         this._checkState();
@@ -102,7 +102,7 @@ export default class Terminal extends BaseEntity {
 
       global.TERMINAL_IS_ACTIVE = true
     } else {
-      ui.displayAnnouncement('You need to find the key at first');
+      ui.displayAnnouncement('You need to find the key');
 		  this.getComponent(AudioSource).playOnce();
     }
   }

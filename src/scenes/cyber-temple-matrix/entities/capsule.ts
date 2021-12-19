@@ -1,9 +1,9 @@
-import BaseEntity from "../base/baseEntity"
+import BaseEntity from "./base/baseEntity"
 import * as utils from "@dcl/ecs-scene-utils"
 import global from "../core/global";
 import Global from "../core/global";
 import resources from "../resources";
-import {EventMessage, CustomEvents} from "../events/CustomEvents";
+import {EventMessage, CapsuleStateChangedEvent} from "../events/customEvents";
 
 export class Capsule {
 	private _withBattery = false
@@ -39,7 +39,7 @@ export class Capsule {
 							0.8,
 							() => {
 								if (this._withBattery) {
-									global.events.fireEvent(new CustomEvents(EventMessage.CAPSULE_OPEN))
+									global.events.fireEvent(new CapsuleStateChangedEvent(EventMessage.CAPSULE_OPEN))
 								}
 							}
 						)

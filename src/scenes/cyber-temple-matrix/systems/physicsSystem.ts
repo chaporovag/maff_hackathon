@@ -1,4 +1,4 @@
-import PhysicsEntity from "../base/physicsEntity";
+import PhysicsEntity from "../entities/base/physicsEntity";
 
 export default class PhysicsSystem implements ISystem {
 

@@ -1,7 +1,7 @@
 import * as utils from '@dcl/ecs-scene-utils'
 import * as ui from "@dcl/ui-scene-utils";
 import Global from "../core/global";
-import BaseEntity from "../base/baseEntity";
+import BaseEntity from "./base/baseEntity";
 import resources from "../resources";
 
 export default class Key extends BaseEntity {

@@ -1,12 +1,12 @@
 import ActionSystem from "../systems/actionSystem";
-import BaseEntity from "../base/baseEntity";
+import BaseEntity from "./base/baseEntity";
 import Global from "../core/global";
 import * as ui from "@dcl/ui-scene-utils";
 import global from "../core/global";
 import Battery from "./battery";
-import PhysicsEntity from "../base/physicsEntity";
+import PhysicsEntity from "./base/physicsEntity";
 import resources from "../resources";
-import {EventMessage, CustomEvents} from "../events/CustomEvents";
+import {EventMessage, CapsuleStateChangedEvent} from "../events/customEvents";
 
 export enum Move {
   FORWARD = 'FORWARD',
@@ -38,7 +38,7 @@ export default class Robot extends PhysicsEntity {
     this._elements = [this]
     this._actionSystem = new ActionSystem(this._elements)
     engine.addSystem(this._actionSystem)
-    global.events.addListener(CustomEvents, null, ({ message }) => {
+    global.events.addListener(CapsuleStateChangedEvent, null, ({ message }) => {
       if (message === EventMessage.CAPSULE_OPEN && !this._battery && Global.IS_QUEST) {
         this._battery = new Battery(new Transform({ position: new Vector3(global.POSITION.x + 27.6, -0.8, global.POSITION.z + 14.8), rotation: new Quaternion(-0.135, 0, 0) }))
       }

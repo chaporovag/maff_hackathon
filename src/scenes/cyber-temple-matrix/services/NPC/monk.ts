@@ -32,7 +32,7 @@ export const monk = new NPC(
     hoverText: config.hovertext,
     reactDistance: config.reactDistance,
     portrait: {
-      path: `images/portraits/${config.portraits}`,
+      path: resources.IMAGE_MONK,
       height: 256,
       width: 256,
       section: {

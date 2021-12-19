@@ -1,4 +1,4 @@
-import PhysicsEntity from "../base/physicsEntity";
+import PhysicsEntity from "./base/physicsEntity";
 import resources from "../resources";
 import global from "../core/global";
 

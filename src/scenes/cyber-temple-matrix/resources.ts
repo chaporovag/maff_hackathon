@@ -1,8 +1,9 @@
 export default {
-  MODEL_MONK: 'models/cyber-temple-matrix/monk.glb',
-  MODEL_HEART: 'models/cyber-temple-matrix/heart.glb',
 
-  SOUND_MONK: '',
+  MODEL_HEART: 'models/cyber-temple-matrix/heart.glb',
+  MODEL_MONK: 'models/cyber-temple-matrix/monk.glb',
+  SOUND_MONK: 'sounds/cyber-temple-matrix/sounds_monk.mp3',
+  IMAGE_MONK: 'images/monk.png',
 
   MODEL_BOX_BIG: 'models/cyber-temple-matrix/box_big.glb',
   MODEL_BOX_SMALL: 'models/cyber-temple-matrix/box_small.glb',
@@ -20,6 +21,7 @@ export default {
   MODEL_TERMINAL_SCREEN: 'models/cyber-temple-matrix/terminal_screen.glb',
 
   SOUND_AMBIENT: 'sounds/cyber-temple-matrix/ambient.mp3',
+  SOUND_AMBIENT_QUEST: 'sounds/cyber-temple-matrix/ambient_quest.mp3',
   SOUND_CLICK: 'sounds/cyber-temple-matrix/click.mp3',
   SOUND_DROP_CUBE: 'sounds/cyber-temple-matrix/drop_cube.mp3',
   SOUND_ERROR_ROBOT: 'sounds/cyber-temple-matrix/error_robot.mp3',

@@ -1,8 +1,7 @@
 import {Dialog, DialogWindow} from "@dcl/npc-scene-utils";
-import Global from "../core/global";
 import resources from "../resources";
 import global from "../core/global";
-import {EventMessage, QuestStateChangedEvent} from "../events/CustomEvents";
+import {EventMessage, QuestStateChangedEvent} from "../events/customEvents";
 
 export default class NPC {
 
@@ -67,9 +66,12 @@ export default class NPC {
     this.hide()
   }
 
-  public show (): void {
-    this._morfImage.visible = true
-    this._ruImage.visible = Global.IS_QUEST
+  public setMorfVisible (value: boolean): void {
+    this._morfImage.visible = value
+  }
+
+  public setRuVisible (value: boolean): void {
+    this._ruImage.visible = value
   }
 
   public hide (): void {
@@ -113,7 +115,7 @@ export default class NPC {
         },
       },
       {
-        text: `OK!`,
+        text: `Look around!`,
         isEndOfDialog: true,
         offsetX: 30,
         portrait: {
@@ -128,7 +130,7 @@ export default class NPC {
         },
       },
       {
-        text: `Now I show you how deep the rabbit-hole goes! To leave this place, you need to find the blue pill`,
+        text: `Now I show you how deep the rabbit-hole goes! To leave this place, you need to find the red pill`,
         offsetX: 30,
         portrait: {
           path: resources.IMAGE_MORF,

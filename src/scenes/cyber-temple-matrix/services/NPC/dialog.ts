@@ -4,7 +4,7 @@ import { monk } from './monk'
 export const MonkDialog: Dialog[] = [
   // #0
   {
-    text: "Hi, I'm Monk - welcome to Digital Temple",
+    text: "Hi, metaverse traveler - welcome to Cyber Temple!",
   },
   // #1
   {
@@ -23,7 +23,7 @@ export const MonkDialog: Dialog[] = [
   },
   // #3
   {
-    text: "This is a Digital Temple, like the one that stands in your universe. Like Shwedagon Pagoda.",
+    text: "This is a Cyber Temple, like the one that stands in your universe",
   },
   // #4
   {

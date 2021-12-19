@@ -1,5 +1,5 @@
 import * as utils from '@dcl/ecs-scene-utils'
-import BaseEntity from "./base/baseEntity";
+import BaseEntity from "./entities/base/baseEntity";
 import Pill from "./entities/pill";
 import Robot from "./entities/robot";
 import Terminal from "./entities/terminal";
@@ -14,7 +14,7 @@ import {Like} from "./services/Like/Like";
 import resources from "./resources";
 import {Floor} from "./entities/floor";
 import NPC from "./entities/npc";
-import {EventMessage, QuestStateChangedEvent} from "./events/CustomEvents";
+import { EventMessage, QuestStateChangedEvent } from "./events/customEvents";
 
 export function createCyberTempleMatrix(): void {
   const like = new Like(
@@ -25,19 +25,23 @@ export function createCyberTempleMatrix(): void {
     '61b905d2dd08def8380abab9'
   )
 
-  const start = new Entity()
-  start.addComponent(new Transform({position: new Vector3(global.POSITION.x + 8,11,global.POSITION.z + 8)}))
-  engine.addEntity(start)
+  const ambient = new Entity()
+  ambient.addComponent(new Transform({position: new Vector3(global.POSITION.x + 8,11,global.POSITION.z + 8)}))
+  engine.addEntity(ambient)
+  const ambientSnd = ambient.addComponent(new AudioSource(new AudioClip(resources.SOUND_AMBIENT)))
+  ambientSnd.loop = true
 
+  const ambientQuest = new Entity()
+  ambientQuest.addComponent(new Transform({position: new Vector3(global.POSITION.x + 8,11,global.POSITION.z + 8)}))
+  engine.addEntity(ambientQuest)
+  const ambientQuestSnd = ambientQuest.addComponent(new AudioSource(new AudioClip(resources.SOUND_AMBIENT_QUEST)))
+  ambientQuestSnd.loop = true;
 
-  const ambient = start.addComponent(new AudioSource(new AudioClip(resources.SOUND_AMBIENT)))
-  ambient.loop = true;
-
-  const robot = new Robot(new Transform({ position: new Vector3(global.POSITION.x + 6,0.1,global.POSITION.z + 10), rotation: Quaternion.Euler(0, 60, 0)}));
-  const terminal = new Terminal({ position: new Vector3(global.POSITION.x + 4,0.08,global.POSITION.z + 3), rotation: Quaternion.Euler(0, 315, 0) })
+  const robot = new Robot(new Transform({ position: new Vector3(global.POSITION.x + 12,0.1,global.POSITION.z + 8), rotation: Quaternion.Euler(0, 75, 0)}));
+  const terminal = new Terminal({ position: new Vector3(global.POSITION.x + 5,0.08,global.POSITION.z + 5), rotation: Quaternion.Euler(0, -115, 0) })
   terminal.init(robot)
 
-  const pill = new Pill(new Transform({ position: new Vector3(global.POSITION.x + 12, 7.5, global.POSITION.z + 6) }));
+  const pill = new Pill(new Transform({ position: new Vector3(global.POSITION.x + 24, 7, global.POSITION.z + 6) }));
   const floor = new Floor({ position: new Vector3(global.POSITION.x + 8, 0.1, global.POSITION.z + 8) })
 
   // roof
@@ -108,14 +112,14 @@ export function createCyberTempleMatrix(): void {
           if (!global.IS_QUEST) npc.start()
           if (global.HAS_KEY && !global.TERMINAL_IS_ACTIVE) terminal.setKeyIconVisible(true)
           if (global.HAS_BATTERY && !global.ROBOT_IS_ACTIVE) robot.setBatteryIconVisible(true)
-          npc.show()
-
+          npc.setMorfVisible(true)
         },
         onCameraExit: () => {
           npc.hide()
           terminal.setKeyIconVisible(false)
           robot.setBatteryIconVisible(false)
-          ambient.playing = false
+          ambientQuestSnd.playing = false
+          ambientSnd.playing = false
         }
       }
     )
@@ -123,8 +127,11 @@ export function createCyberTempleMatrix(): void {
 
   global.events.addListener(QuestStateChangedEvent, null, ({ message }) => {
     if (message === EventMessage.QUEST_START) {
-      ambient.playing = true
+      ambientSnd.playing = false
+      ambientQuestSnd.playing = true
       global.IS_QUEST = true
+      npc.setRuVisible(true)
+      pill.setActive(true)
       walls.forEach(wall => wall.enableCollision(true))
       if (!global.TERMINAL_IS_ACTIVE) {
         if (global.HAS_KEY) {
@@ -143,8 +150,11 @@ export function createCyberTempleMatrix(): void {
     }
 
     if (message === EventMessage.QUEST_END) {
-      ambient.playing = false
+      ambientSnd.playing = true
+      ambientQuestSnd.playing = false
       global.IS_QUEST = false
+      npc.setRuVisible(false)
+      pill.setActive(false)
       walls.forEach(wall => wall.enableCollision(false))
       if (!global.TERMINAL_IS_ACTIVE) {
         if (global.HAS_KEY) {
@@ -162,6 +172,7 @@ export function createCyberTempleMatrix(): void {
       }
     }
   })
+  global.events.fireEvent(new QuestStateChangedEvent(EventMessage.QUEST_END))
 
   new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
   new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
@@ -182,8 +193,8 @@ export function createCyberTempleMatrix(): void {
   new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5).init();
 
   // Create boxes
-  const boxSmall = new BoxSmall(new Transform({ position: new Vector3(global.POSITION.x + 2.5, 1.5, global.POSITION.z + 14) }))
-  const boxBig = new BoxBig(new Transform({ position: new Vector3(global.POSITION.x + 3, 0.5, global.POSITION.z + 14) }))
+  const boxSmall = new BoxSmall(new Transform({ position: new Vector3(global.POSITION.x + 2.5, 0.5, global.POSITION.z + 10) }))
+  const boxBig = new BoxBig(new Transform({ position: new Vector3(global.POSITION.x + 3, 0.5, global.POSITION.z + 12 )}))
 
   const boxes: Box[] = [boxSmall, boxBig]
   const physicsSystem = new PhysicsSystem()

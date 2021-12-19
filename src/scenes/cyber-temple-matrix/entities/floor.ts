@@ -1,4 +1,4 @@
-import BaseEntity from "../base/baseEntity";
+import BaseEntity from "./base/baseEntity";
 import resources from "../resources";
 import global from "../core/global";
 

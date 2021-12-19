@@ -1,12 +1,14 @@
 import * as utils from '@dcl/ecs-scene-utils'
-import BaseEntity from "../base/baseEntity";
+import BaseEntity from "./base/baseEntity";
 import * as ui from "@dcl/ui-scene-utils";
 import Global from "../core/global";
 import global from "../core/global";
 import resources from "../resources";
-import {EventMessage, QuestStateChangedEvent} from "../events/CustomEvents";
+import {EventMessage, QuestStateChangedEvent} from "../events/customEvents";
 
 export default class Pill extends BaseEntity {
+
+  private _isActive: boolean = true
 
   constructor(transform: Transform) {
     super(new GLTFShape(resources.MODEL_PILL_RED), transform)
@@ -23,19 +25,23 @@ export default class Pill extends BaseEntity {
         ),
         {
           onCameraEnter: () => {
-            if (global.HAS_PILL) return
-
-            Global.HAS_PILL = true
+            if (!this._isActive || global.HAS_PILL) return
             this.getComponent(AudioSource).playOnce()
-            this.getComponent(Transform).scale.setAll(0)
-
             if (Global.IS_QUEST) {
               ui.displayAnnouncement('Wake up, Neo', 6, Color4.Green());
               global.events.fireEvent(new QuestStateChangedEvent(EventMessage.QUEST_END))
             }
+            Global.HAS_PILL = true
           }
         }
       )
     )
+  }
+
+  public setActive(value: boolean) {
+    if (!Global.HAS_PILL) {
+      this._isActive = value
+      this.getComponent(Transform).scale.setAll(value ? 1 : 0)
+    }
   }
 }

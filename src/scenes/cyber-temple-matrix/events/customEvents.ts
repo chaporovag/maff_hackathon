@@ -5,7 +5,7 @@ export enum EventMessage {
 }
 
 @EventConstructor()
-class CustomEvents {
+class CapsuleStateChangedEvent {
   public message: string
   constructor(message: EventMessage) {
     this.message = message
@@ -21,6 +21,6 @@ class QuestStateChangedEvent {
 }
 
 export {
-  CustomEvents,
+  CapsuleStateChangedEvent,
   QuestStateChangedEvent
 }
