@@ -4,7 +4,7 @@ import { monk } from './monk'
 export const MonkDialog: Dialog[] = [
   // #0
   {
-    text: "Hi, metaverse traveler - welcome to Cyber Temple!",
+    text: "Greetings dear guest of the Art Fest Maff Metaverse!"
   },
   // #1
   {
@@ -23,19 +23,23 @@ export const MonkDialog: Dialog[] = [
   },
   // #3
   {
-    text: "This is a Cyber Temple, like the one that stands in your universe",
+    text: 'It is with the greatest pleasure that I invite you to visit the art object of the Inception team called "Cyber Temple".'
   },
   // #4
   {
-    text: "This temple is dedicated to the path and all-consuming being. I hope that after passing this path, your horizons will broaden.",
+    text: '"Cyber Temple" is an allusion to the Matrix series of films, symbolizing the duality of the real and digital world.'
   },
   // #5
   {
-    text: "Visit my brother next door, we will be happy with any donation... If, of course, he is still in this Metaverse.",
+    text: "In the center of the installation is a unique platform in the form of a giant squid machine, which is self-sufficient in itself as an art object and serves as a cyber altar."
   },
   // #6
   {
-    text: "To start you need to understand the principle of inaction, let go of the situation. It's better not to move, there is nothing to bustle here.",
+    text: "So you won't get bored with the cyber prayer, we prepared for you a small interactive quest."
+  },
+  // #7
+  {
+    text: "You will need to carefully examine all the space, find all the secrets by following the clues, activate the machine in the form of a squid, and make your choice.",
     triggeredByNext: () => monk.playAnimation('Goodbye', true, 2),
     isEndOfDialog: true,
   }

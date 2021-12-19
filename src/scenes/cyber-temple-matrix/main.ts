@@ -174,23 +174,23 @@ export function createCyberTempleMatrix(): void {
   })
   global.events.fireEvent(new QuestStateChangedEvent(EventMessage.QUEST_END))
 
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 18.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 21.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 24.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 9.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 6.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 0.5), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 18.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 21.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 24.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 9.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 6.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
 
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 18.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 21.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 24.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 9.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 6.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 15.5), rotation: Quaternion.Euler(0, 180, 0) }), -1.5).init();
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 18.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 21.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 24.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 9.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 6.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5).init();
 
   // Create boxes
   const boxSmall = new BoxSmall(new Transform({ position: new Vector3(global.POSITION.x + 2.5, 0.5, global.POSITION.z + 10) }))
