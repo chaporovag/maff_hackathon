@@ -77,7 +77,7 @@ export default class Robot extends PhysicsEntity {
       }
       const Start = new Entity()
       engine.addEntity(Start)
-		Start.setParent(this._battery)
+		  Start.setParent(this._battery)
       Start.addComponent(new AudioSource(new AudioClip(resources.SOUND_GENERATOR_START)));
 
       Start.getComponent(AudioSource).playOnce();
