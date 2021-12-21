@@ -136,6 +136,48 @@ export function createCyberTempleMatrix(): void {
     )
   )
 
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 3.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 6.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 9.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 18.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 21.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 24.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
+
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 3.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 6.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 9.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 18.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 21.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 24.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  const capsule = new Capsule(new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
+  capsule.init()
+
+  // Create boxes
+  const boxSmall = new BoxSmall(new Transform({ position: new Vector3(global.POSITION.x + 2.5, 0.5, global.POSITION.z + 10) }))
+  const boxBig = new BoxBig(new Transform({ position: new Vector3(global.POSITION.x + 3, 0.5, global.POSITION.z + 12 )}))
+
+  const boxes: Box[] = [boxSmall, boxBig]
+  const physicsSystem = new PhysicsSystem()
+
+  boxes.forEach(box => {
+    physicsSystem.addEntity(box)
+    box.addComponent(
+      new OnPointerDown(
+        () => {
+          if (boxes.filter(x => x.isActive).length === 0)
+            box.playerPickup();
+        },
+        { hoverText: "Pick up", distance: 6, button: ActionButton.PRIMARY }
+      )
+    )
+  })
+  physicsSystem.addEntity(robot)
+
   global.events.addListener(QuestStateChangedEvent, null, ({ message }) => {
     if (message === EventMessage.QUEST_START) {
       ambientSnd.playing = false
@@ -143,6 +185,7 @@ export function createCyberTempleMatrix(): void {
       global.IS_QUEST = true
       npc.setRuVisible(true)
       pill.setActive(true)
+      capsule.check()
       walls.forEach(wall => wall.enableCollision(true))
       if (!global.TERMINAL_IS_ACTIVE) {
         if (global.HAS_KEY) {
@@ -186,81 +229,6 @@ export function createCyberTempleMatrix(): void {
   global.events.fireEvent(new QuestStateChangedEvent(EventMessage.QUEST_END))
   ambientSnd.playing = false
 
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 3.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 6.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 9.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 18.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 21.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 24.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 0.6), rotation: Quaternion.Euler(0, 0, 0) }), 1.5);
-
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 3.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 6.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 9.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 12.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 15.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 18.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 21.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 24.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5);
-  new Capsule( new Transform({ position: new Vector3(global.POSITION.x + 27.6, 0.1, global.POSITION.z + 15.4), rotation: Quaternion.Euler(0, 180, 0) }), -1.5).init();
-
-  // Create boxes
-  const boxSmall = new BoxSmall(new Transform({ position: new Vector3(global.POSITION.x + 2.5, 0.5, global.POSITION.z + 10) }))
-  const boxBig = new BoxBig(new Transform({ position: new Vector3(global.POSITION.x + 3, 0.5, global.POSITION.z + 12 )}))
-
-  const boxes: Box[] = [boxSmall, boxBig]
-  const physicsSystem = new PhysicsSystem()
-
-  boxes.forEach(box => {
-    physicsSystem.addEntity(box)
-    box.addComponent(
-      new OnPointerDown(
-        () => {
-          if (boxes.filter(x => x.isActive).length === 0)
-            box.playerPickup();
-        },
-        { hoverText: "Pick up", distance: 6, button: ActionButton.PRIMARY }
-      )
-    )
-  })
-  physicsSystem.addEntity(robot)
-
-
-  // Invisible physics walls
-  /*
-  const wallShape = new CANNON.Box(new CANNON.Vec3(16, 50, 0.5))
-  const wallNorth = new CANNON.Body({
-    mass: 0,
-    shape: wallShape,
-    position: new CANNON.Vec3(global.POSITION.x + 16, 49.5, global.POSITION.z + 16),
-  })
-  physicsSystem.addBody(wallNorth)
-
-  const wallSouth = new CANNON.Body({
-    mass: 0,
-    shape: wallShape,
-    position: new CANNON.Vec3(global.POSITION.x + 16, 49.5, global.POSITION.z + 0),
-  })
-  physicsSystem.addBody(wallSouth)
-
-  const wallEast = new CANNON.Body({
-    mass: 0,
-    shape: wallShape,
-    position: new CANNON.Vec3(global.POSITION.x + 16, 49.5, 16),
-  })
-  wallEast.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, global.POSITION.z + 0), -Math.PI / 2)
-  physicsSystem.addBody(wallEast)
-
-  const wallWest = new CANNON.Body({
-    mass: 0,
-    shape: wallShape,
-    position: new CANNON.Vec3(global.POSITION.x + 0, 49.5, global.POSITION.z + 16),
-  })
-  wallWest.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2)
-  physicsSystem.addBody(wallWest)
-  */
   // Controls
   // "E" key up
   Input.instance.subscribe("BUTTON_UP", ActionButton.PRIMARY, false, (e) => {

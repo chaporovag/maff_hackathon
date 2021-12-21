@@ -4,7 +4,7 @@ export default {
 
   MODEL_MONK: 'models/cyber-temple-matrix/monk.glb',
   SOUND_MONK: 'sounds/cyber-temple-matrix/sounds_monk.mp3',
-  IMAGE_MONK: 'images/monk.png',
+  IMAGE_MONK: 'images/cyber-temple-matrix/monk.png',
 
   MODEL_TWITTER: 'models/cyber-temple-matrix/twitter.glb',
   SOUND_TWITTER: 'sounds/cyber-temple-matrix/click_twitter.mp3',

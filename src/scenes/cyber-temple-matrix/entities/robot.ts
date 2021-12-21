@@ -24,7 +24,7 @@ export default class Robot extends PhysicsEntity {
   private readonly _elements: BaseEntity[]
 
   // @ts-ignore
-   _battery: Battery
+  _battery: Battery
 
   constructor(transform: Transform) {
     super(new GLTFShape(resources.MODEL_ROBOT), transform);
@@ -38,13 +38,15 @@ export default class Robot extends PhysicsEntity {
     this._elements = [this]
     this._actionSystem = new ActionSystem(this._elements)
     engine.addSystem(this._actionSystem)
+
+    this._battery = new Battery(new Transform({ position: new Vector3(global.POSITION.x + 27.6, -0.8, global.POSITION.z + 14.8), rotation: new Quaternion(-0.135, 0, 0) }))
+    this._battery.setVisible(false)
+
     global.events.addListener(CapsuleStateChangedEvent, null, ({ message }) => {
-      if (message === EventMessage.CAPSULE_OPEN && !this._battery && Global.IS_QUEST) {
-        this._battery = new Battery(new Transform({ position: new Vector3(global.POSITION.x + 27.6, -0.8, global.POSITION.z + 14.8), rotation: new Quaternion(-0.135, 0, 0) }))
+      if (message === EventMessage.CAPSULE_OPEN && !this._battery.isVisible() && Global.IS_QUEST) {
+        this._battery.setVisible(true)
       }
     })
-
-    // this._battery = new Battery(new Transform({ position: new Vector3(10, -0.8, 10.5), rotation: new Quaternion(-0.135, 0, 0) }))
 
     // Create physics body
     const body = new CANNON.Body({
@@ -65,12 +67,12 @@ export default class Robot extends PhysicsEntity {
     if (Global.HAS_BATTERY && !Global.ROBOT_IS_ACTIVE) {
       Global.ROBOT_IS_ACTIVE = true
       this.removeComponent(OnPointerDown)
-      if (this._battery) {
+      if (this._battery.isVisible()) {
         this._battery.removeComponent(OnPointerDown)
         this._battery.getComponent(Transform).position = this.getComponent(Transform).position
         this._battery.getComponent(Transform).rotation = this.getComponent(Transform).rotation
         this._battery.getComponent(Transform).scale = Vector3.One()
-        this._battery.hideIcon()
+        this._battery.setIconVisible(false)
         this._elements.push(this._battery)
       }
       const Start = new Entity()
@@ -89,20 +91,14 @@ export default class Robot extends PhysicsEntity {
   }
 
   public setBatteryIconVisible(value: boolean) {
-    if (!this._battery) return
-    if (value) {
-      this._battery.showIcon()
-    } else {
-      this._battery.hideIcon()
+    if (this._battery.isVisible()) {
+      this._battery.setIconVisible(value)
     }
   }
 
   public setBatteryVisible(value: boolean) {
-    if (!this._battery) return
-    if (value) {
-      this._battery.getComponent(Transform).scale.setAll(1)
-    } else {
-      this._battery.getComponent(Transform).scale.setAll(0)
+    if (this._battery.isVisible()) {
+      this._battery.setVisible(value)
     }
   }
 

@@ -17,6 +17,14 @@ class TerminalCard extends BaseEntity {
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape(resources.MODEL_TERMINAL_CARD), transform);
   }
+
+  public setVisible(value: boolean) {
+    if (value) {
+      this.getComponent(Transform).scale.setAll(1)
+    } else {
+      this.getComponent(Transform).scale.setAll(0)
+    }
+  }
 }
 
 export default class Terminal extends BaseEntity {
@@ -29,6 +37,9 @@ export default class Terminal extends BaseEntity {
   private _robot: Robot
   // @ts-ignore
   private _key: Key
+
+  // @ts-ignore
+  private _terminalCard: TerminalCard
 
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape(resources.MODEL_TERMINAL), transform);
@@ -49,7 +60,11 @@ export default class Terminal extends BaseEntity {
     this._turnLeftBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 90)
     this._moveFwdBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), 180)
     this._turnRightBtn.getComponent(Transform).rotate(new Vector3(0, 0, 1), -90)
-	  this._key = new Key(new Transform({ position: new Vector3(global.POSITION.x + 1, 6, global.POSITION.z + 12) }));
+
+    this._key = new Key(new Transform({ position: new Vector3(global.POSITION.x + 1, 6, global.POSITION.z + 12) }));
+    this._terminalCard = new TerminalCard(transform)
+    this._terminalCard.setVisible(false)
+
     this.addComponent(
       new OnClick(() => {
         this._checkState();
@@ -91,7 +106,7 @@ export default class Terminal extends BaseEntity {
       Sound.addComponent(new AudioSource(new AudioClip(resources.SOUND_INSERT_CARD)))
       Sound.getComponent(AudioSource).playOnce();
 
-      new TerminalCard(this.getComponent(Transform))
+      this._terminalCard.setVisible(true)
 
       this.removeComponent(OnClick)
       this.addComponent(new OnClick(

@@ -6,7 +6,8 @@ import resources from "../resources";
 import {EventMessage, CapsuleStateChangedEvent} from "../events/customEvents";
 
 export class Capsule {
-	private _withBattery = false
+	private _withBattery: boolean = false
+	private _isOpened: boolean = false
 
 	constructor(transform: Transform, deltaPosition: number) {
 		const startPos = transform.position;
@@ -30,21 +31,18 @@ export class Capsule {
 		capsuleBase.addComponent(
 			new utils.ToggleComponent(utils.ToggleState.Off, (value): void => {
 				if (value === utils.ToggleState.On) {
+					this._isOpened = true
 					capsuleBase.getComponent(AudioSource).playOnce()
-
 					capsuleBase.addComponentOrReplace(
 						new utils.MoveTransformComponent(
 							capsuleBase.getComponent(Transform).position,
 							endPos,
 							0.8,
-							() => {
-								if (this._withBattery) {
-									global.events.fireEvent(new CapsuleStateChangedEvent(EventMessage.CAPSULE_OPEN))
-								}
-							}
+							() => this.check()
 						)
 					)
 				} else {
+					this._isOpened = false
 					capsuleBase.addComponentOrReplace(
 						new utils.MoveTransformComponent(
 							capsuleBase.getComponent(Transform).position,
@@ -60,6 +58,12 @@ export class Capsule {
 
 	public init(): void {
 		this._withBattery = true
+	}
+
+	public check(): void {
+		if (this._withBattery && this._isOpened) {
+			global.events.fireEvent(new CapsuleStateChangedEvent(EventMessage.CAPSULE_OPEN))
+		}
 	}
 }
 
