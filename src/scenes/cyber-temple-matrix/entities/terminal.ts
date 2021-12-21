@@ -33,19 +33,21 @@ export default class Terminal extends BaseEntity {
   private readonly _turnLeftBtn: TerminalButton
   private readonly _turnRightBtn: TerminalButton
 
-  // @ts-ignore
-  private _robot: Robot
-  // @ts-ignore
-  private _key: Key
+  private readonly _errorSnd: AudioSource
 
   // @ts-ignore
+  private _robot: Robot
+  private _key: Key
   private _terminalCard: TerminalCard
 
   constructor(transform: TransformConstructorArgs) {
     super(new GLTFShape(resources.MODEL_TERMINAL), transform);
+
     const screen = new BaseEntity(new GLTFShape(resources.MODEL_TERMINAL_SCREEN), new Transform({ position: new Vector3(0,0.95,0.2) }) )
     screen.setParent(this)
-	  this.addComponent(new AudioSource(new AudioClip(resources.SOUND_ERROR_TERMINAL)))
+
+    this._errorSnd = new AudioSource(new AudioClip(resources.SOUND_ERROR_TERMINAL))
+	  this.addSound(this._errorSnd)
 
     this._turnRightBtn = new TerminalButton({ position: new Vector3(-0.4, 1.5, 0.2) })
     this._moveFwdBtn = new TerminalButton({ position: new Vector3(-0.15, 1.5, 0.2) })
@@ -101,10 +103,13 @@ export default class Terminal extends BaseEntity {
     if ((Global.HAS_KEY && !global.TERMINAL_IS_ACTIVE)) {
       this._activeButtons();
       this._key.hideIcon()
-      const Sound = new Entity();
-      engine.addEntity(Sound);
-      Sound.addComponent(new AudioSource(new AudioClip(resources.SOUND_INSERT_CARD)))
-      Sound.getComponent(AudioSource).playOnce();
+
+      const insertSnd = new AudioSource(new AudioClip(resources.SOUND_INSERT_CARD))
+      const insert = new Entity();
+      engine.addEntity(insert);
+      insert.setParent(this)
+      insert.addComponent(insertSnd)
+      insertSnd.playOnce();
 
       this._terminalCard.setVisible(true)
 
@@ -118,7 +123,7 @@ export default class Terminal extends BaseEntity {
       global.TERMINAL_IS_ACTIVE = true
     } else {
       ui.displayAnnouncement('You need to find the key');
-		  this.getComponent(AudioSource).playOnce();
+		  this._errorSnd.playOnce();
     }
   }
 

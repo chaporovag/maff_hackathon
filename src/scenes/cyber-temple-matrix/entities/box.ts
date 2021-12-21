@@ -6,6 +6,9 @@ export class Box extends PhysicsEntity {
 
   public isActive: boolean = false
 
+  private readonly _takeSnd: AudioSource
+  private readonly _dropSnd: AudioSource
+
   // @ts-ignore
   private _body: CANNON.Body
   // @ts-ignore
@@ -13,7 +16,10 @@ export class Box extends PhysicsEntity {
 
   constructor(shape: GLTFShape, transform: Transform) {
     super(shape, transform);
-	  this.addComponent(new AudioSource(new AudioClip(resources.SOUND_DROP_CUBE)));
+    this._takeSnd = new AudioSource(new AudioClip(resources.SOUND_TAKE_BOX))
+    this._dropSnd = new AudioSource(new AudioClip(resources.SOUND_DROP_CUBE))
+    this.addSound(this._takeSnd)
+    this.addSound(this._dropSnd)
   }
 
   protected setBody(body: CANNON.Body) {
@@ -41,10 +47,7 @@ export class Box extends PhysicsEntity {
     this._body.position.set(Camera.instance.position.x, Camera.instance.position.y, Camera.instance.position.z)
     this.setParent(Attachable.FIRST_PERSON_CAMERA)
     this.getComponent(Transform).position.set(0, 0.75, 1.5);
-	 const cube = new Entity()
-	 engine.addEntity(cube)
-	 cube.addComponent(new AudioSource(new AudioClip(resources.SOUND_TAKE_BOX)))
-	 cube.getComponent(AudioSource).playOnce()
+    this._takeSnd.playOnce()
   }
 
   public playerDrop(dropDirection: Vector3): void {
@@ -53,8 +56,8 @@ export class Box extends PhysicsEntity {
 
     this.isActive = false
     this.setParent(null)
-	 
-	 this.getComponent(AudioSource).playOnce();
+	  this._dropSnd.playOnce();
+
     // Physics
     this._body.wakeUp()
     this._body.velocity.setZero()

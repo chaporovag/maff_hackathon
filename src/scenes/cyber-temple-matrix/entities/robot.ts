@@ -23,8 +23,8 @@ export default class Robot extends PhysicsEntity {
   private readonly _actionSystem: ActionSystem
   private readonly _elements: BaseEntity[]
 
-  // @ts-ignore
-  _battery: Battery
+  private readonly _battery: Battery
+  private readonly _errorSnd: AudioSource
 
   constructor(transform: Transform) {
     super(new GLTFShape(resources.MODEL_ROBOT), transform);
@@ -61,6 +61,9 @@ export default class Robot extends PhysicsEntity {
     const source = new AudioSource(clip)
     this.addComponent(source);
     source.loop = true
+
+    this._errorSnd = new AudioSource(new AudioClip(resources.SOUND_ERROR_ROBOT))
+    this.addSound(this._errorSnd)
   }
 
   private _checkState(): void {
@@ -75,19 +78,15 @@ export default class Robot extends PhysicsEntity {
         this._battery.setIconVisible(false)
         this._elements.push(this._battery)
       }
-      const Start = new Entity()
-      engine.addEntity(Start)
-		  Start.setParent(this._battery)
-      Start.addComponent(new AudioSource(new AudioClip(resources.SOUND_GENERATOR_START)));
-
-      Start.getComponent(AudioSource).playOnce();
+      const startSnd = new AudioSource(new AudioClip(resources.SOUND_GENERATOR_START))
+      const start = new Entity()
+      engine.addEntity(start)
+		  start.setParent(this._battery)
+      start.addComponent(startSnd);
+      startSnd.playOnce();
     } else {
       ui.displayAnnouncement('Find the battery');
-      const Err = new Entity()
-      engine.addEntity(Err)
-      Err.addComponent(new AudioSource(new AudioClip(resources.SOUND_ERROR_ROBOT)))
-
-      Err.getComponent(AudioSource).playOnce();
+      this._errorSnd.playOnce()
     }
   }
 
