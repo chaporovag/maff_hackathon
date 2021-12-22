@@ -85,7 +85,9 @@ export default class Robot extends PhysicsEntity {
       start.addComponent(startSnd);
       startSnd.playOnce();
     } else {
-      ui.displayAnnouncement('Find the battery');
+      if (global.IS_QUEST) {
+        ui.displayAnnouncement('Find the battery');
+      }
       this._errorSnd.playOnce()
     }
   }

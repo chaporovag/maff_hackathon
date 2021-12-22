@@ -51,7 +51,7 @@ export function createCyberTempleMatrix(): void {
   const terminal = new Terminal({ position: new Vector3(global.POSITION.x + 5,0.08,global.POSITION.z + 5), rotation: Quaternion.Euler(0, -115, 0) })
   terminal.init(robot)
 
-  const pill = new Pill(new Transform({ position: new Vector3(global.POSITION.x + 24, 7, global.POSITION.z + 6) }));
+  const pill = new Pill(new Transform({ position: new Vector3(global.POSITION.x + 24, 7.5, global.POSITION.z + 6) }));
   const floor = new Floor({ position: new Vector3(global.POSITION.x + 8, 0.1, global.POSITION.z + 8) })
 
   // roof

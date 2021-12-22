@@ -23,7 +23,7 @@ export class Capsule {
 					toggleComponent.toggle()
 				}},
 				{
-					distance: 4
+					distance: 6
 				}
 			)
 		)

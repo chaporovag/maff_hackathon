@@ -21,7 +21,7 @@ export default class Key extends BaseEntity {
         ),
         {
           onCameraEnter: () => {
-            if (Global.HAS_KEY) return
+            if (Global.HAS_KEY || !Global.IS_QUEST) return
             Global.HAS_KEY = true
             this.getComponent(AudioSource).playOnce()
             this.getComponent(Transform).scale.setAll(0)

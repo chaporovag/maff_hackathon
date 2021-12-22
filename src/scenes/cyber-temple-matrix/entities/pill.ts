@@ -25,7 +25,7 @@ export default class Pill extends BaseEntity {
         ),
         {
           onCameraEnter: () => {
-            if (!this._isActive || global.HAS_PILL) return
+            if (!this._isActive || global.HAS_PILL || !global.IS_QUEST) return
             this.getComponent(AudioSource).playOnce()
             if (Global.IS_QUEST) {
               ui.displayAnnouncement('Wake up, Neo', 6, Color4.Green());

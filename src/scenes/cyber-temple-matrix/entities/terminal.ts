@@ -72,9 +72,8 @@ export default class Terminal extends BaseEntity {
         this._checkState();
       },
       {
-        hoverText: "Insert the key",
-        distance: 6,
-        button: ActionButton.PRIMARY
+        button: ActionButton.PRIMARY,
+        distance: 6
       })
     )
   }
@@ -122,8 +121,10 @@ export default class Terminal extends BaseEntity {
 
       global.TERMINAL_IS_ACTIVE = true
     } else {
-      ui.displayAnnouncement('You need to find the key');
-		  this._errorSnd.playOnce();
+      if (global.IS_QUEST) {
+        ui.displayAnnouncement('Find the key');
+      }
+      this._errorSnd.playOnce();
     }
   }
 
