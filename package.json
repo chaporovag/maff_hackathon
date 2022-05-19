@@ -1,7 +1,7 @@
 {
-  "name": "dcl-project",
+  "name": "dcl scene",
   "version": "1.0.0",
-  "description": "My new Decentraland project",
+  "description": "Decentraland scene",
   "scripts": {
     "start": "dcl start",
     "build": "build-ecs",

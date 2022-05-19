@@ -1,3 +1,3 @@
-import { createCyberTempleMatrix } from "./scenes/cyber-temple-matrix/main";
+import { init } from "./scene/main";
 
-createCyberTempleMatrix()
+init()
